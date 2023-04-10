@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Distribution-Name: javase
+Build-Date: Tue Dec 25 08:56:00 EST 2018
+Build-Time: 1545746160790
+Build-Host-Java-Version: 1.8.0_171
+Build-Host-Java-Vendor: Oracle Corporation
+Build-Host-Java-Vendor-EMail: null
+Build-Host-Java-Vendor-URL: http://java.oracle.com/
+Build-Host-Java-VM-Name: OpenJDK 64-Bit Server VM
+Build-Host-Java-VM-Version: 25.171-b11
+Build-Host-SquirrelJME-APILevel: null
+Build-Host-Java-VM-Vendor: Oracle Corporation
+Build-Host-Java-VM-Vendor-EMail: null
+Build-Host-Java-VM-Vendor-URL: null
+Build-Host-Java-Runtime-Name: OpenJDK Runtime Environment
+Build-Host-Java-Runtime-Version: 1.8.0_171-8u171-b11-2-b11
+Build-Host-OS-Name: Linux
+Build-Host-OS-Arch: amd64
+Build-Host-OS-Version: 4.9.125.18251.1

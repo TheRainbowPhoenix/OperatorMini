@@ -1,0 +1,17 @@
+MIDlet-Name: 欧朋浏览器 Lite
+MIDlet-1: 欧朋浏览器 Lite, /i.png, Browser
+MIDlet-Data-Size: 25600
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Icon: /i.png
+MIDlet-Info-URL: http://m.oupeng.com/
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.sms, javax.wir
+ eless.messaging.sms.send, javax.microedition.io.Connector.socket, jav
+ ax.microedition.io.Connector.file.write, javax.microedition.io.Connec
+ tor.file.read, javax.microedition.pim.ContactList.read
+MIDlet-Vendor: 北界创想软件有限公司
+MIDlet-Permissions: javax.microedition.io.Connector.http
+MIDlet-Version: 4.6
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Description: 欧朋浏览器 Lite
+Ping-CID: 1_1371_1371101_25_4
+OM-Campaign: nhorizon

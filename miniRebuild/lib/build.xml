@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="deploy" name="maven-artifacts">
+  <property file="private.properties" />
+  <macrodef name="maven-deploy">
+    <attribute name="file" />
+    <sequential>
+      <echo message="Deploy: @{file}" />
+      <local name="artifactId" />
+      <basename file="@{file}" property="artifactId" suffix=".jar" />
+      <local name="maven.result" />
+      <java classname="org.codehaus.classworlds.Launcher" fork="true" resultproperty="maven.result">
+        <jvmarg value="-Xmx512m" />
+        <jvmarg value="-Dmaven.multiModuleProjectDirectory=." />
+        <classpath>
+          <fileset dir="${maven.home}/boot">
+            <include name="*.jar" />
+          </fileset>
+          <fileset dir="${maven.home}/lib">
+            <include name="*.jar" />
+          </fileset>
+        </classpath>
+        <sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
+        <sysproperty key="maven.home" value="${maven.home}" />
+        <arg line="--batch-mode deploy:deploy-file -Dfile=@{file} -Durl=${repository.url} -DrepositoryId=${repository.id} -DgroupId=com.oracle.jmesdk -DartifactId=${artifactId} -Dversion=8.3 -Dpackaging=jar" />
+      </java>
+      <fail>
+        <condition>
+          <isfailure code="${maven.result}" />
+        </condition>
+      </fail>
+    </sequential>
+  </macrodef>
+  <target name="deploy">
+    <sequential>
+    <maven-deploy file="JadTool.jar"/>
+    <maven-deploy file="cldc_1.8.jar"/>
+    <maven-deploy file="configuration_1.0.jar"/>
+    <maven-deploy file="device-io_1.0.jar"/>
+    <maven-deploy file="device-io_1.1.jar"/>
+    <maven-deploy file="device-io_1.1_adc.jar"/>
+    <maven-deploy file="device-io_1.1_atcmd.jar"/>
+    <maven-deploy file="device-io_1.1_counter.jar"/>
+    <maven-deploy file="device-io_1.1_dac.jar"/>
+    <maven-deploy file="device-io_1.1_generic.jar"/>
+    <maven-deploy file="device-io_1.1_gpio.jar"/>
+    <maven-deploy file="device-io_1.1_i2cbus.jar"/>
+    <maven-deploy file="device-io_1.1_mmio.jar"/>
+    <maven-deploy file="device-io_1.1_modem.jar"/>
+    <maven-deploy file="device-io_1.1_pwm.jar"/>
+    <maven-deploy file="device-io_1.1_spibus.jar"/>
+    <maven-deploy file="device-io_1.1_uart.jar"/>
+    <maven-deploy file="device-io_1.1_watchdog.jar"/>
+    <maven-deploy file="gcf_1.8.jar"/>
+    <maven-deploy file="httpclient_1.1.jar"/>
+    <maven-deploy file="jadtool-ant-task.jar"/>
+    <maven-deploy file="json_1.0.jar"/>
+    <maven-deploy file="jsr120_1.1.jar"/>
+    <maven-deploy file="jsr172_1.0.jar"/>
+    <maven-deploy file="jsr177_1.0-apdu.jar"/>
+    <maven-deploy file="jsr177_1.0-crypto.jar"/>
+    <maven-deploy file="jsr179_1.0.jar"/>
+    <maven-deploy file="jsr280_1.0.jar"/>
+    <maven-deploy file="jsr75_1.0-fc.jar"/>
+    <maven-deploy file="luikey-javadriver.jar"/>
+    <maven-deploy file="meep_8.0-cellular.jar"/>
+    <maven-deploy file="meep_8.0-event.jar"/>
+    <maven-deploy file="meep_8.0-io.jar"/>
+    <maven-deploy file="meep_8.0-key.jar"/>
+    <maven-deploy file="meep_8.0-lui.jar"/>
+    <maven-deploy file="meep_8.0-media.jar"/>
+    <maven-deploy file="meep_8.0-power.jar"/>
+    <maven-deploy file="meep_8.0-rms.jar"/>
+    <maven-deploy file="meep_8.0-swm.jar"/>
+    <maven-deploy file="meep_8.0.jar"/>
+    <maven-deploy file="oauth2_1.0.jar"/>
+    <maven-deploy file="runtime_update_1.0.jar"/>
+    <maven-deploy file="satsa_extensions_api.jar"/>
+    <maven-deploy file="ssl_extensions_api.jar"/></sequential>
+  </target>
+</project>

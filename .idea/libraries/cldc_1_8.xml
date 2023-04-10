@@ -1,0 +1,53 @@
+<component name="libraryTable">
+  <library name="cldc_1.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/cldc_1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/configuration_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_adc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_atcmd.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_counter.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_dac.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_generic.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_gpio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_i2cbus.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_mmio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_modem.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_pwm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_spibus.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_uart.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/device-io_1.1_watchdog.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/gcf_1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/httpclient_1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jadtool-ant-task.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/JadTool.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/json_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr75_1.0-fc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr120_1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr172_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr177_1.0-apdu.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr177_1.0-crypto.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr179_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/jsr280_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/luikey-javadriver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-cellular.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-event.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-io.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-key.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-lui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-media.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-power.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-rms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0-swm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/meep_8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/oauth2_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/runtime_update_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/satsa_extensions_api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/ssl_extensions_api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/miniRebuild/lib/midp_2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

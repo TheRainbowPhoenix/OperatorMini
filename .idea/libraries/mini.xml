@@ -1,0 +1,37 @@
+<component name="libraryTable">
+  <library name="mini">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mini.jar!/" />
+      <root url="jar://$PROJECT_DIR$/opera.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-1.2.2960-advanced-de.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-1.2.2960-advanced-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-1.2.2960-basic-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-1.2.3214-advanced-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-1.2.3214-basic-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-2.0.3920-advanced-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-2.0.3920-basic-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-2.0.4062-advanced-de.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-2.0.4062-advanced-fr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-2.0.4062-advanced-uk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-3.0.6306-basic-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-3.0.6358-advanced-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-3.1.10423-advanced-es.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-3.1.13045-advanced-af.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-4.0.10406-advanced-int.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-4.2.13337-advanced-en-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-4.3.24214-advanced-en-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-4.3.24214-advanced-fr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-4.5.33869-advanced-en.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-5.0.17381-advanced-en.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-5.0.18635-advanced-en-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-5.1.21051-advanced-en-us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-7.0.31438-advanced-en.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-8.0.35158-advanced-fr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-8.0.35626-advanced-be.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-8.0.35626-advanced-en-gb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/j2me/opera-mini-8.0.35626-advanced-fr.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
