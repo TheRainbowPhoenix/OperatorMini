@@ -18,10 +18,10 @@ public class Browser extends MIDlet {
     public boolean f70a;
 
     public final void destroyApp(boolean z) {
-        if (!(f67a == null || f67a.f385a == null)) {
-            C0010k.m80a(f67a.f385a.f302a);
+        if (!(f67a == null || f67a.window == null)) {
+            DrawingUtils.m80a(f67a.window.f302a);
         }
-        C0010k.f143G = true;
+        DrawingUtils.f143G = true;
         f68b = true;
     }
 
@@ -35,12 +35,12 @@ public class Browser extends MIDlet {
             this.f70a = false;
         } else if (f68b) {
             f68b = false;
-            C0010k.m86a((MIDlet) this);
-            C0010k.m125g();
-            C0010k.m115c();
+            DrawingUtils.m86a((MIDlet) this);
+            DrawingUtils.m125g();
+            DrawingUtils.m115c();
             f67a = new RunnableC0018s(this);
             f67a.repaint();
-            if (C0010k.f199n) {
+            if (DrawingUtils.f199n) {
                 new Thread(f67a).run();
             } else {
                 this.f69a.callSerially(f67a);

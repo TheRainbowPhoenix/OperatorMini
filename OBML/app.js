@@ -17,6 +17,8 @@ var k = {
 };
 
 var SKIN_COLORS = [];
+WIDTH = 500;
+HEIGHT = 500;
 
 function drawOnScreenSelection(ctx, x, y, w, h, disabled) {
   ctx.save();
@@ -302,9 +304,19 @@ function drawProgressBar(ctx, thus) {
   }
 }
 
+var opera_mini_logo_image = new Image();
+opera_mini_logo_image.src = "assets/om100.png";
+
 var skin_img = new Image();
-skin_img.src = "fonts/skin.png";
-skin_img.onload = function () {
+skin_img.src = "assets/skin.png";
+
+var languages_map;
+const languages_map_prom = async function () {
+  const response = await fetch("assets/languages_map");
+  languages_map = await response.arrayBuffer();
+};
+
+async function init() {
   // Créer un canvas temporaire
   var canvas = document.createElement("canvas");
   canvas.width = skin_img.width;
@@ -327,8 +339,23 @@ skin_img.onload = function () {
   // Afficher le tableau de couleurs
   SKIN_COLORS = colors;
 
+  console.log(languages_map);
+
   main();
-};
+}
+
+(async () => {
+  await Promise.all([skin_img.onload, opera_mini_logo_image.onload]);
+  await languages_map_prom();
+
+  await init();
+})();
+
+// Promise.all([
+//   skin_img.onload,
+//   opera_mini_logo_image.onload,
+//   languages_map_prom,
+// ]).then(() => {});
 
 function main() {
   // Exemple d'utilisation
@@ -340,7 +367,7 @@ function main() {
   makeGradient(ctx, 350, 10, 50, 100, 0xff0000, 0x00ff00);
 
   // const image = new Image();
-  // image.src = "fonts/defaultfavicon.png";
+  // image.src = "assets/defaultfavicon.png";
 
   // image.onload = function () {
   //   drawRectangleWithImage(ctx, "#ff0000", 180, 50, 128, 110, image);
@@ -351,6 +378,30 @@ function main() {
   testFont(ctx);
 }
 
+/**
+ *
+ * @param {Graphics} graphics
+ */
+function draw_splash(graphics) {
+  graphics.setColor(0xffffff);
+  graphics.fillRect(
+    graphics.getClipX(),
+    graphics.getClipY(),
+    graphics.getClipWidth(),
+    graphics.getClipHeight()
+  );
+  graphics.drawImage(opera_mini_logo_image, WIDTH / 2, HEIGHT / 2, 3);
+  graphics.setColor(0);
+  a = DrawingUtils.get_string_resource(56);
+  width = WIDTH / 2 - /* DrawingUtils.m56a(font, a, true) */ 11 / 2;
+  graphics.drawString(
+    a,
+    width,
+    HEIGHT - 20 + /* DrawingUtils.m73a(font, true) */ 11,
+    36
+  );
+}
+
 function paint(ctx) {
   let g = new Graphics(ctx);
   let w = new WindowApp();
@@ -359,7 +410,9 @@ function paint(ctx) {
   s.window.pageImageData.f498i = true; // debug test
   skin_colors = SKIN_COLORS;
 
-  s.paint(g);
+  draw_splash(g);
+
+  // s.paint(g);
 
   // w.paint(g);
 }

@@ -82,7 +82,7 @@ public final class C0012m {
     private int m129a(char[] cArr) throws IOException {
         int readUnsignedShort = this.f218a.readUnsignedShort();
         this.f218a.readFully(this.f226b, 0, readUnsignedShort);
-        return C0010k.m58a(this.f226b, 0, readUnsignedShort, cArr, 0);
+        return DrawingUtils.m58a(this.f226b, 0, readUnsignedShort, cArr, 0);
     }
 
     /* renamed from: a */

@@ -27,7 +27,7 @@ public final class C0011l extends TimerTask {
     }
 
     /* renamed from: a */
-    private static int m128a(RunnableC0020u uVar, String str) {
+    private static int m128a(PageDataRunnable uVar, String str) {
         int i = 1;
         if (uVar == null || str == null) {
             return 0;
@@ -50,7 +50,7 @@ public final class C0011l extends TimerTask {
     public final void run() {
         switch (this.f212a) {
             case 0:
-                if (!this.f215a.f385a.m188c()) {
+                if (!this.f215a.window.m188c()) {
                     this.f215a.mo78j();
                     return;
                 } else {
@@ -66,7 +66,7 @@ public final class C0011l extends TimerTask {
                     if (this.f215a.f381a.getCurrent() != this.f215a) {
                         this.f215a.f387a = false;
                         return;
-                    } else if (!this.f215a.f396b || this.f215a.f374a < currentTimeMillis - ((long) C0010k.f155a)) {
+                    } else if (!this.f215a.f396b || this.f215a.f374a < currentTimeMillis - ((long) DrawingUtils.f155a)) {
                         this.f215a.f396b = false;
                         if (!this.f215a.f404c && currentTimeMillis - this.f215a.f399c > 50) {
                             this.f215a.mo62a(this.f215a.f373a, (int) (currentTimeMillis - this.f215a.f389b));
@@ -95,7 +95,7 @@ public final class C0011l extends TimerTask {
                 this.f215a.f378a.schedule(lVar, 50);
                 return;
             case 5:
-                this.f215a.f385a.mo44a(this.f213a.f92a);
+                this.f215a.window.mo44a(this.f213a.f92a);
                 return;
             case 6:
             case 8:
@@ -119,18 +119,18 @@ public final class C0011l extends TimerTask {
                 if (this.f215a != null) {
                     this.f214a = new Alert((String) null, (String) null, (Image) null, AlertType.INFO);
                     this.f214a.setTimeout(-2);
-                    RunnableC0020u uVar = new RunnableC0020u(this.f215a, this.f215a.f385a, null, null, null);
-                    if (this.f215a.f385a != null) {
-                        this.f215a.f385a.f311b = uVar;
+                    PageDataRunnable uVar = new PageDataRunnable(this.f215a, this.f215a.window, null, null, null);
+                    if (this.f215a.window != null) {
+                        this.f215a.window.f311b = uVar;
                     }
-                    int a = m128a(uVar, C0010k.f186g);
+                    int a = m128a(uVar, DrawingUtils.http_ip_proxy);
                     if (a != 2) {
                         if (a == 1) {
                             uVar.m339a(8);
-                            this.f214a.setString(C0010k.m62a(108));
+                            this.f214a.setString(DrawingUtils.m62a(108));
                         } else {
                             uVar.m339a(8);
-                            this.f214a.setString(new StringBuffer().append(C0010k.m63a(109, "http://help.opera.com/mini/")).append(uVar.m360f()).toString());
+                            this.f214a.setString(new StringBuffer().append(DrawingUtils.m63a(109, "http://help.opera.com/mini/")).append(uVar.m360f()).toString());
                         }
                         if (this.f215a.f375a != null && this.f215a.f375a.f69a != null) {
                             this.f215a.f375a.f69a.setCurrent(this.f214a, this.f215a);

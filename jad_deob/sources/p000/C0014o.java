@@ -124,7 +124,7 @@ public final class C0014o {
         this.f280e = i;
         this.f284i = i2;
         if (str4 != null) {
-            this.f266a = C0010k.m70a(str4);
+            this.f266a = DrawingUtils.loadImageResource(str4);
         }
     }
 
@@ -135,34 +135,34 @@ public final class C0014o {
 
     /* renamed from: a */
     private Image mo31a() {
-        if (this.f262a != 'c' || C0010k.f205t) {
-            if (this.f262a != 'r' || C0010k.f205t) {
+        if (this.f262a != 'c' || DrawingUtils.f205t) {
+            if (this.f262a != 'r' || DrawingUtils.f205t) {
                 if (this.f262a != 's') {
                     return null;
                 }
                 if (f261a[4] == null) {
-                    f261a[4] = C0010k.m70a("/sa.png");
+                    f261a[4] = DrawingUtils.loadImageResource("/sa.png");
                 }
                 return f261a[4];
             } else if (this.f267a) {
                 if (f261a[2] == null) {
-                    f261a[2] = C0010k.m70a("/rbs.png");
+                    f261a[2] = DrawingUtils.loadImageResource("/rbs.png");
                 }
                 return f261a[2];
             } else {
                 if (f261a[3] == null) {
-                    f261a[3] = C0010k.m70a("/rbu.png");
+                    f261a[3] = DrawingUtils.loadImageResource("/rbu.png");
                 }
                 return f261a[3];
             }
         } else if (this.f267a) {
             if (f261a[0] == null) {
-                f261a[0] = C0010k.m70a("/cbs.png");
+                f261a[0] = DrawingUtils.loadImageResource("/cbs.png");
             }
             return f261a[0];
         } else {
             if (f261a[1] == null) {
-                f261a[1] = C0010k.m70a("/cbu.png");
+                f261a[1] = DrawingUtils.loadImageResource("/cbu.png");
             }
             return f261a[1];
         }
@@ -192,9 +192,9 @@ public final class C0014o {
         }
         if (this.f262a == 'c' || this.f262a == 'r') {
             Image a = mo31a();
-            return a != null ? (short) (a.getHeight() + 2) : C0010k.m73a(f260a, false);
+            return a != null ? (short) (a.getHeight() + 2) : DrawingUtils.m73a(f260a, false);
         }
-        short a2 = C0010k.m73a(f260a, false);
+        short a2 = DrawingUtils.m73a(f260a, false);
         if (this.f262a == 'x' && this.f266a != null) {
             a2 = (short) Math.max(this.f266a.getHeight(), (int) a2);
         }
@@ -215,7 +215,7 @@ public final class C0014o {
         if (this.f262a == 'c' || this.f262a == 'r') {
             Image a = mo31a();
             if (a == null) {
-                return C0010k.m73a(f260a, false);
+                return DrawingUtils.m73a(f260a, false);
             }
             return (z ? 1 : 5) + a.getWidth();
         }
@@ -223,7 +223,7 @@ public final class C0014o {
         if (this.f262a == 's') {
             str = "X";
         }
-        int a2 = C0010k.m56a(f260a, str, false);
+        int a2 = DrawingUtils.m56a(f260a, str, false);
         if (this.f262a == 's') {
             a2 *= 13;
         }
@@ -307,8 +307,8 @@ public final class C0014o {
                     int i13 = a - 4;
                     int i14 = a2 - 4;
                     graphics.setColor(2236962);
-                    graphics.drawLine(i11, i12, i11 + i13 + C0010k.f185g, i12 + i14 + C0010k.f185g);
-                    graphics.drawLine(i13 + i11, i12, i11 - C0010k.f185g, i14 + i12 + C0010k.f185g);
+                    graphics.drawLine(i11, i12, i11 + i13 + DrawingUtils.f185g, i12 + i14 + DrawingUtils.f185g);
+                    graphics.drawLine(i13 + i11, i12, i11 - DrawingUtils.f185g, i14 + i12 + DrawingUtils.f185g);
                 }
             } else if (this.f262a == 'r') {
                 Image a4 = mo31a();
@@ -318,17 +318,17 @@ public final class C0014o {
                 }
                 int i15 = (a - 8) / 2;
                 graphics.setColor(i10);
-                graphics.fillArc(i7 + i15, i8 + i15, C0010k.f185g + 8, 8, 0, 360);
+                graphics.fillArc(i7 + i15, i8 + i15, DrawingUtils.f185g + 8, 8, 0, 360);
                 graphics.setColor(i9);
                 graphics.drawArc(i7 + i15, i8 + i15, 8, 8, 0, 360);
                 if (this.f267a) {
                     graphics.setColor(2236962);
-                    graphics.fillArc(C0010k.f185g + i7 + i15 + 1, C0010k.f185g + i8 + i15 + 1, 6 - C0010k.f185g, 6 - C0010k.f185g, 0, 360);
+                    graphics.fillArc(DrawingUtils.f185g + i7 + i15 + 1, DrawingUtils.f185g + i8 + i15 + 1, 6 - DrawingUtils.f185g, 6 - DrawingUtils.f185g, 0, 360);
                 }
             } else {
                 String str2 = this.f271b;
                 if ((str2 == null || str2.length() == 0) && this.f278d != null && this.f278d.equals("search:///") && this.f262a == 'x') {
-                    str2 = C0010k.m62a(103);
+                    str2 = DrawingUtils.m62a(103);
                 }
                 if (this.f262a == 'p') {
                     String str3 = "";
@@ -342,7 +342,7 @@ public final class C0014o {
                 if (this.f262a == 'x' || this.f262a == 'p' || this.f262a == 'a' || this.f262a == 's') {
                     m134a(graphics, i10, i7, i8, a, a2, this.f266a);
                     if (this.f262a == 's') {
-                        C0010k.m83a(graphics, ((i7 + a) - a2) + 1, i8, a2, a2, this.f279d);
+                        DrawingUtils.drawOnScreenSelection(graphics, ((i7 + a) - a2) + 1, i8, a2, a2, this.f279d);
                         graphics.setColor(0);
                         int i17 = ((i7 + a) - (a2 / 2)) - 3;
                         int i18 = ((a2 / 2) + i8) - 1;
@@ -364,7 +364,7 @@ public final class C0014o {
                     i3 = i7;
                 }
                 if (this.f262a == 'b' || this.f262a == 'u' || this.f262a == 'e') {
-                    C0010k.m83a(graphics, i3, i4, i6 + 1, i5, false);
+                    DrawingUtils.drawOnScreenSelection(graphics, i3, i4, i6 + 1, i5, false);
                     i3 += 3;
                     i4 += 3;
                     i6 -= 6;
@@ -397,9 +397,9 @@ public final class C0014o {
                 }
                 if (str != null) {
                     if (this.f275c == null) {
-                        this.f275c = C0010k.m66a(f260a, str, i6, false);
+                        this.f275c = DrawingUtils.m66a(f260a, str, i6, false);
                     }
-                    C0010k.m85a(graphics, f260a, this.f275c, this.f266a != null ? this.f266a.getWidth() + i3 + 3 : i3, i4, 20, i10, false);
+                    DrawingUtils.m85a(graphics, f260a, this.f275c, this.f266a != null ? this.f266a.getWidth() + i3 + 3 : i3, i4, 20, i10, false);
                 }
                 graphics.setClip(clipX, clipY, clipWidth, clipHeight);
             }
@@ -409,16 +409,16 @@ public final class C0014o {
     /* renamed from: a */
     public final void mo36a(RunnableC0018s sVar, int i) {
         boolean z = true;
-        if (C0010k.f203r) {
+        if (DrawingUtils.f203r) {
             sVar.setFullScreenMode(false);
         }
         if (this.f264a == null) {
             if (this.f262a == 's' && this.f272b) {
-                this.f264a = new C0006g(C0010k.m62a(49), 2, this);
-            } else if (C0010k.f170c == 1 || C0010k.f170c == 3) {
-                this.f264a = new C0006g(C0010k.m62a(49), 1, this);
+                this.f264a = new C0006g(DrawingUtils.m62a(49), 2, this);
+            } else if (DrawingUtils.f170c == 1 || DrawingUtils.f170c == 3) {
+                this.f264a = new C0006g(DrawingUtils.m62a(49), 1, this);
             } else {
-                this.f264a = new C0006g(C0010k.m62a(49), 3, this);
+                this.f264a = new C0006g(DrawingUtils.m62a(49), 3, this);
             }
             this.f264a.addCommand(RunnableC0018s.f366m);
             this.f264a.addCommand(RunnableC0018s.f360i);
@@ -428,7 +428,7 @@ public final class C0014o {
             RunnableC0018s.m204a((Screen) this.f264a);
             this.f264a.setCommandListener(sVar);
         }
-        if (!C0010k.f200o || i != 8) {
+        if (!DrawingUtils.f200o || i != 8) {
             z = false;
         }
         sVar.f423g = z;
@@ -451,7 +451,7 @@ public final class C0014o {
     /* renamed from: b */
     public final String mo38b() {
         if (this.f262a != 's') {
-            return (this.f265a == null || this.f271b == null || this.f262a == 'o') ? "" : new StringBuffer().append(C0010k.m65a(this.f265a, false, true)).append("=").append(C0010k.m65a(this.f271b, true, true)).toString();
+            return (this.f265a == null || this.f271b == null || this.f262a == 'o') ? "" : new StringBuffer().append(DrawingUtils.m65a(this.f265a, false, true)).append("=").append(DrawingUtils.m65a(this.f271b, true, true)).toString();
         }
         String str = "";
         boolean z = true;
@@ -461,7 +461,7 @@ public final class C0014o {
                 if (!z) {
                     str = new StringBuffer().append(str).append("&").toString();
                 }
-                str = new StringBuffer().append(str).append(C0010k.m65a(this.f265a, false, true)).append("=").append(C0010k.m65a(str2, true, true)).toString();
+                str = new StringBuffer().append(str).append(DrawingUtils.m65a(this.f265a, false, true)).append("=").append(DrawingUtils.m65a(str2, true, true)).toString();
                 z = false;
             }
         }

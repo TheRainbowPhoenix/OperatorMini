@@ -1,3 +1,35 @@
+currentLocale = undefined;
+
+class BytesDataView extends DataView {
+  byteOffset = 0;
+  endianess = false;
+
+  constructor(buffer, byteOffset, byteLength) {
+    super(buffer, byteOffset, byteLength);
+  }
+
+  readInt8() {
+    const value = super.getInt8(this.byteOffset);
+    this.byteOffset += 1;
+    return value;
+  }
+
+  readInt16() {
+    const value = super.getInt16(this.byteOffset, this.endianess);
+    this.byteOffset += 2;
+    return value;
+  }
+
+  readUTFString() {
+    const length = this.readInt16(this.byteOffset, false);
+
+    const stringBytes = new Uint8Array(this.buffer, this.byteOffset, length);
+
+    this.byteOffset += length;
+    return new TextDecoder().decode(stringBytes);
+  }
+}
+
 class DrawingUtils {
   static f185g = 0;
   static f148L = false;
@@ -7,6 +39,8 @@ class DrawingUtils {
   static m95a(i, i2, i3, i4, i5, i6, i7, i8) {
     return i + i3 >= i5 && i2 + i4 >= i6 && i5 + i7 >= i && i6 + i8 >= i2;
   }
+
+  static translations_res;
 
   static m85a(graphics, font, str, i, i2, i3, i4, z) {
     if (!DrawingUtils.f148L || z) {
@@ -33,10 +67,67 @@ class DrawingUtils {
     };
   }
 
+  static init_string_resources() {
+    const dataView = new BytesDataView(languages_map);
+
+    if (3 === dataView.readInt16()) {
+      const numLocales = dataView.readInt8();
+      const localeCodes = new Array(numLocales);
+      const localeNames = new Array(numLocales);
+      let currentLocaleIndex = -1;
+
+      for (let i = 0; i < numLocales; i++) {
+        const localeCode = dataView.readUTFString();
+        if (currentLocale != null && localeCode.startsWith(currentLocale)) {
+          currentLocale = localeCode;
+          currentLocaleIndex = i;
+        }
+        localeCodes[i] = localeCode;
+      }
+
+      let defaultLocaleIndex = -1;
+      if (currentLocaleIndex === -1) {
+        currentLocale = localeCodes[0];
+        defaultLocaleIndex = 0;
+      } else {
+        defaultLocaleIndex = currentLocaleIndex;
+      }
+
+      const numTranslations = dataView.readInt16() - 1;
+      const translationResources = new Array(numTranslations);
+
+      for (let i = 0; i < numLocales; i++) {
+        localeNames[i] = dataView.readUTFString();
+        for (let j = 0; j < numTranslations; j++) {
+          const translationResource = dataView.readUTFString();
+          if (i === defaultLocaleIndex) {
+            translationResources[j] = translationResource;
+          }
+        }
+      }
+      return translationResources;
+    }
+  }
+
+  static get_string_resource(id) {
+    if (!DrawingUtils.translations_res) {
+      DrawingUtils.translations_res = DrawingUtils.init_string_resources();
+    }
+    return DrawingUtils.translations_res[id];
+  }
+
   static;
 }
 
 class Graphics {
+  static HCENTER = 1;
+  static VCENTER = 2;
+  static LEFT = 4;
+  static RIGHT = 8;
+  static TOP = 16;
+  static BOTTOM = 32;
+  static BASELINE = 64;
+
   ctx;
   clip = {
     x: 0,
@@ -50,21 +141,36 @@ class Graphics {
     this.ctx = ctx;
   }
 
-  drawImage(ctx, image, x, y, width, height) {
-    if (width && height) {
-      this.ctx.drawImage(image, x, y, width, height);
+  drawImage(image, x, y, anchor) {
+    let lx;
+    let ly;
+
+    if ((anchor & Graphics.RIGHT) != 0) {
+      lx = x - image.width;
+    } else if ((anchor & Graphics.HCENTER) != 0) {
+      lx = x - image.width / 2.0;
     } else {
-      this.ctx.drawImage(image, x, y);
+      lx = x;
     }
+
+    if ((anchor & Graphics.BOTTOM) != 0) {
+      ly = y - image.height;
+    } else if ((anchor & Graphics.VCENTER) != 0) {
+      ly = y - image.height / 2.0;
+    } else {
+      ly = y;
+    }
+
+    this.ctx.drawImage(image, lx, ly);
   }
-  drawImageRegion(ctx, image, sx, sy, sw, sh, dx, dy, dw, dh) {
+  drawImageRegion(image, sx, sy, sw, sh, dx, dy, dw, dh) {
     if (dw && dh) {
       this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
     } else {
       this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy);
     }
   }
-  drawRect(ctx, x, y, width, height) {
+  drawRect(x, y, width, height) {
     this.ctx.fillRect(x, y, width, height);
   }
 
@@ -148,8 +254,18 @@ class Graphics {
     console.log("TODO: handle fonts");
   }
 
-  drawString(str, x, y, anchor) {
-    console.log("TODO: draw string - " + str);
+  drawString(text, x, y, anchor) {
+    if ((anchor & Graphics.RIGHT) != 0) {
+      this.ctx.textAlign = "right";
+    } else if ((anchor & Graphics.HCENTER) != 0) {
+      this.ctx.textBaseline = "top";
+    } else {
+      this.ctx.textAlign = "left";
+    }
+
+    this.ctx.font = "11px sans-serif";
+    console.log("TODO: draw string - " + text + ` x:${x}, y:${y}, a:${anchor}`);
+    this.ctx.fillText(text, x, y);
   }
 }
 

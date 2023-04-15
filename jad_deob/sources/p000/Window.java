@@ -36,10 +36,10 @@ public final class Window {
     private int f293B = -1;
 
     /* renamed from: C */
-    private int f294C;
+    private int barWidth;
 
     /* renamed from: D */
-    private int f295D;
+    private int barOffset;
 
     /* renamed from: E */
     private int f296E;
@@ -69,7 +69,7 @@ public final class Window {
     public RunnableC0018s f304a;
 
     /* renamed from: a */
-    public RunnableC0020u pageImageData;
+    public PageDataRunnable pageImageData;
 
     /* renamed from: a */
     public boolean f306a = false;
@@ -87,7 +87,7 @@ public final class Window {
     public Vector f310b;
 
     /* renamed from: b */
-    public RunnableC0020u f311b;
+    public PageDataRunnable f311b;
 
     /* renamed from: b */
     public boolean f312b;
@@ -120,7 +120,7 @@ public final class Window {
     private boolean isVisible;
 
     /* renamed from: g */
-    public int f322g;
+    public int offset;
 
     /* renamed from: g */
     private boolean f323g;
@@ -147,16 +147,16 @@ public final class Window {
     public int f330p;
 
     /* renamed from: q */
-    public int f331q;
+    public int width;
 
     /* renamed from: r */
-    public int progress;
+    public int height;
 
     /* renamed from: s */
-    public int f333s;
+    public int x;
 
     /* renamed from: t */
-    public int f334t;
+    public int y;
 
     /* renamed from: u */
     public int f335u;
@@ -175,13 +175,13 @@ public final class Window {
 
     public Window(RunnableC0018s sVar, int i, int i2, int i3, int i4, int i5, int i6) {
         this.f304a = sVar;
-        this.f331q = i;
+        this.width = i;
         m174a(i2);
-        this.f333s = i3;
-        this.f334t = i4;
+        this.x = i3;
+        this.y = i4;
         this.f329o = i5;
         this.f330p = i6;
-        this.f328n = this.f331q - 6;
+        this.f328n = this.width - 6;
         if (f286a == null) {
             f286a = new char[512];
         }
@@ -192,11 +192,11 @@ public final class Window {
         if (this.pageImageData == null || this.pageImageData.f454a == null) {
             return -1;
         }
-        int c = this.pageImageData.m350c(this.f322g);
+        int c = this.pageImageData.m350c(this.offset);
         if (c >= this.pageImageData.f454a.length || c < 0) {
             return -1;
         }
-        if (this.pageImageData.f466b[c] - this.pageImageData.f460a[c] >= (-this.f322g) || (c = c + 1) < this.pageImageData.f454a.length) {
+        if (this.pageImageData.f466b[c] - this.pageImageData.f460a[c] >= (-this.offset) || (c = c + 1) < this.pageImageData.f454a.length) {
             return this.pageImageData.mo93a(this.pageImageData.f454a[c] - 1, this.f336v, this.pageImageData.f488f, true);
         }
         return -1;
@@ -226,10 +226,10 @@ public final class Window {
         try {
             byte[] bArr = (byte[]) this.f310b.elementAt(i2);
             if (i == 0) {
-                return C0010k.m74a(bArr, 0);
+                return DrawingUtils.m74a(bArr, 0);
             }
             if (i == 1) {
-                return C0010k.m74a(bArr, 2);
+                return DrawingUtils.m74a(bArr, 2);
             }
             return -1;
         } catch (Throwable th) {
@@ -270,7 +270,7 @@ public final class Window {
 
     /* renamed from: a */
     private void m149a(int i, Graphics graphics, int i2, int i3, int i4) {
-        int i5 = this.f331q;
+        int i5 = this.width;
         if (this.isVisible) {
             i5 -= 6;
         }
@@ -303,9 +303,9 @@ public final class Window {
 
     /* renamed from: a */
     private void m151a(Graphics graphics, int i, int i2, int i3, boolean z, boolean z2) {
-        C0002c cVar;
+        PageFont cVar;
         if (this.pageImageData != null && this.pageImageData.f453a != null && this.pageImageData.f454a != null) {
-            C0002c cVar2 = null;
+            PageFont cVar2 = null;
             int i4 = this.pageImageData.f454a[i];
             if (!z && !this.pageImageData.f465b) {
                 m149a(16777215, graphics, i2, i3, i);
@@ -357,7 +357,7 @@ public final class Window {
                         break;
                     case 'D':
                         if (!z && !this.pageImageData.f465b) {
-                            m149a(RunnableC0020u.m247a(C0010k.m74a(this.pageImageData.f453a, i7)), graphics, this.f333s, i3, i);
+                            m149a(PageDataRunnable.m247a(DrawingUtils.m74a(this.pageImageData.f453a, i7)), graphics, this.x, i3, i);
                         }
                         i6 = i7 + 2;
                         cVar = cVar2;
@@ -369,19 +369,19 @@ public final class Window {
                         cVar = cVar2;
                         break;
                     case 'F':
-                        i6 = C0010k.m74a(this.pageImageData.f453a, i7) + 2 + 1 + i7;
+                        i6 = DrawingUtils.m74a(this.pageImageData.f453a, i7) + 2 + 1 + i7;
                         cVar = cVar2;
                         break;
                     case 'I':
                     case 'K':
                         int i8 = i7 + 2 + 2;
-                        short a = C0010k.m74a(this.pageImageData.f453a, i8);
+                        short a = DrawingUtils.m74a(this.pageImageData.f453a, i8);
                         int i9 = i8 + 2;
                         byte b = this.pageImageData.f453a[i9];
                         i6 = i9 + 1;
                         if (c == 'I') {
-                            int a2 = i6 + 2 + C0010k.m74a(this.pageImageData.f453a, i6);
-                            i6 = a2 + 2 + C0010k.m74a(this.pageImageData.f453a, a2);
+                            int a2 = i6 + 2 + DrawingUtils.m74a(this.pageImageData.f453a, i6);
+                            i6 = a2 + 2 + DrawingUtils.m74a(this.pageImageData.f453a, a2);
                         }
                         Image a3 = this.pageImageData.m336a((int) a);
                         if (a3 != null) {
@@ -399,24 +399,24 @@ public final class Window {
                                 cVar = cVar2;
                                 break;
                             }
-                            int width = (b & 16) != 0 ? this.f331q - a3.getWidth() : (b & 32) != 0 ? this.f329o : i5;
-                            int height = i3 + ((this.pageImageData.f460a[i] - a3.getHeight()) / 2);
+                            int width2 = (b & 16) != 0 ? this.width - a3.getWidth() : (b & 32) != 0 ? this.f329o : i5;
+                            int height2 = i3 + ((this.pageImageData.f460a[i] - a3.getHeight()) / 2);
                             if (!z || this.pageImageData.f465b) {
                                 if (a3 != null) {
-                                    graphics.drawImage(a3, width, height, 20);
+                                    graphics.drawImage(a3, width2, height2, 20);
                                 }
                             } else if ((this.f319e && z2) || (z2 && this.f323g)) {
-                                C0010k.m81a(graphics, width - 1, height - 1, a3.getWidth() + 2, a3.getHeight() + 2);
+                                DrawingUtils.drawFocus(graphics, width2 - 1, height2 - 1, a3.getWidth() + 2, a3.getHeight() + 2);
                                 this.f323g = false;
                             }
                             if (this.f303a != null) {
                                 this.f319e = false;
-                                m148a(width, height, this.f303a.mo32a(false), this.f303a.m135a(), this.pageImageData.f472c[this.f303a.f281f]);
+                                m148a(width2, height2, this.f303a.mo32a(false), this.f303a.m135a(), this.pageImageData.f472c[this.f303a.f281f]);
                                 this.f303a = null;
                             } else if (!this.pageImageData.f465b) {
-                                m148a(width, height, a3.getWidth(), a3.getHeight(), this.f293B);
+                                m148a(width2, height2, a3.getWidth(), a3.getHeight(), this.f293B);
                             }
-                            i5 = width + a3.getWidth();
+                            i5 = width2 + a3.getWidth();
                             cVar = cVar2;
                             break;
                         } else {
@@ -424,15 +424,15 @@ public final class Window {
                             break;
                         }
                     case 'J':
-                        short a4 = C0010k.m74a(this.pageImageData.f453a, i7);
+                        short a4 = DrawingUtils.m74a(this.pageImageData.f453a, i7);
                         int i10 = i7 + 2;
-                        short a5 = C0010k.m74a(this.pageImageData.f453a, i10);
+                        short a5 = DrawingUtils.m74a(this.pageImageData.f453a, i10);
                         i6 = i10 + 2;
                         int i11 = (a4 > 38 || a5 > 38) ? (this.f328n - a4) / 2 : i5;
                         graphics.setColor(SKIN_COLORS[25]);
                         graphics.drawRect(i11, i3, a4 - 1, a5 - 1);
                         if (z && !this.pageImageData.f465b && ((this.f319e && z2) || (z2 && this.f323g))) {
-                            C0010k.m81a(graphics, i11 - 1, i3 - 1, a4 + 2, a5 + 2);
+                            DrawingUtils.drawFocus(graphics, i11 - 1, i3 - 1, a4 + 2, a5 + 2);
                             this.f323g = false;
                         }
                         if (this.f303a != null) {
@@ -451,17 +451,17 @@ public final class Window {
                     case 'm':
                         this.f293B = i7 - 1;
                         if (this.pageImageData.f465b) {
-                            m148a(i5 - this.f329o, i3, this.f331q, this.pageImageData.f460a[i], this.f293B);
+                            m148a(i5 - this.f329o, i3, this.width, this.pageImageData.f460a[i], this.f293B);
                             if (this.f319e) {
                                 int i12 = i5 - this.f329o;
-                                int i13 = this.f331q;
+                                int i13 = this.width;
                                 if (this.isVisible) {
                                     i13 -= 6;
                                 }
-                                C0010k.m82a(graphics, i12, i3, i13, this.pageImageData.f460a[i], SKIN_COLORS[7], SKIN_COLORS[8]);
+                                DrawingUtils.makeGradient(graphics, i12, i3, i13, this.pageImageData.f460a[i], SKIN_COLORS[7], SKIN_COLORS[8]);
                             }
                         }
-                        i6 = C0010k.m74a(this.pageImageData.f453a, i7) + 2 + i7;
+                        i6 = DrawingUtils.m74a(this.pageImageData.f453a, i7) + 2 + i7;
                         cVar = cVar2;
                         break;
                     case 'O':
@@ -474,23 +474,23 @@ public final class Window {
                         break;
                     case 'R':
                         i6 = i7 + 2;
-                        graphics.setColor(RunnableC0020u.m247a(C0010k.m74a(this.pageImageData.f453a, i7)));
-                        graphics.drawLine(i5, i3 + 1, (this.isVisible ? (this.f331q - 6) - 2 : this.f331q - 2) + C0010k.f185g, i3 + 1);
+                        graphics.setColor(PageDataRunnable.m247a(DrawingUtils.m74a(this.pageImageData.f453a, i7)));
+                        graphics.drawLine(i5, i3 + 1, (this.isVisible ? (this.width - 6) - 2 : this.width - 2) + DrawingUtils.f185g, i3 + 1);
                         cVar = cVar2;
                         break;
                     case 'T':
                         int i14 = this.pageImageData.f453a[i7] & 255;
                         int i15 = i7 + 1;
-                        short a6 = C0010k.m74a(this.pageImageData.f453a, i15);
+                        short a6 = DrawingUtils.m74a(this.pageImageData.f453a, i15);
                         int i16 = i15 + 2;
-                        int a7 = C0010k.m58a(this.pageImageData.f453a, i16, a6, f286a, 0);
+                        int a7 = DrawingUtils.m58a(this.pageImageData.f453a, i16, a6, f286a, 0);
                         i6 = i16 + a6;
-                        if (!(cVar2 == null || cVar2.f65a == null)) {
-                            graphics.setFont(cVar2.f65a);
+                        if (!(cVar2 == null || cVar2.lcd_font == null)) {
+                            graphics.setFont(cVar2.lcd_font);
                             graphics.setColor(cVar2.f64a);
-                            short a8 = C0010k.m73a(cVar2.f65a, this.pageImageData.f492g);
+                            short a8 = DrawingUtils.m73a(cVar2.lcd_font, this.pageImageData.f492g);
                             if (i14 >= 255) {
-                                i14 = C0010k.m57a(cVar2.f65a, f286a, 0, a7, this.pageImageData.f492g);
+                                i14 = DrawingUtils.m57a(cVar2.lcd_font, f286a, 0, a7, this.pageImageData.f492g);
                             }
                             int i17 = i3 + ((this.pageImageData.f460a[i] - a8) / 2);
                             if ((z == this.f319e && !z2) || this.pageImageData.f465b) {
@@ -510,10 +510,10 @@ public final class Window {
                                         graphics.setColor(SKIN_COLORS[12]);
                                     }
                                 }
-                                if (!C0010k.f148L || this.pageImageData.f492g) {
-                                    graphics.drawChars(f286a, 0, a7, i5, i17 + C0010k.f193j, 20);
+                                if (!DrawingUtils.f148L || this.pageImageData.f492g) {
+                                    graphics.drawChars(f286a, 0, a7, i5, i17 + DrawingUtils.f193j, 20);
                                 } else {
-                                    C0010k.m60a(cVar2.f65a).mo6a(graphics, f286a, 0, a7, i5, i17, this.f335u);
+                                    DrawingUtils.m60a(cVar2.lcd_font).mo6a(graphics, f286a, 0, a7, i5, i17, this.f335u);
                                 }
                                 if (this.f319e) {
                                     this.f335u = i18;
@@ -529,7 +529,7 @@ public final class Window {
                         cVar = cVar2;
                         break;
                     case 'Y':
-                        cVar = this.pageImageData.f455a[this.pageImageData.f453a[i7] & 255];
+                        cVar = this.pageImageData.page_fonts[this.pageImageData.f453a[i7] & 255];
                         i6 = i7 + 1;
                         break;
                     case 'c':
@@ -540,7 +540,7 @@ public final class Window {
                     case 'u':
                     case 'x':
                         i6 = i7 + 2;
-                        C0014o oVar = this.pageImageData.f459a[C0010k.m74a(this.pageImageData.f453a, i7)];
+                        C0014o oVar = this.pageImageData.f459a[DrawingUtils.m74a(this.pageImageData.f453a, i7)];
                         oVar.f279d = this.f319e;
                         if (!z) {
                             oVar.mo35a(graphics, i5, i3);
@@ -551,7 +551,7 @@ public final class Window {
                             if (c == 'i') {
                                 this.f323g = true;
                             } else {
-                                C0010k.m81a(graphics, i5, i3, oVar.mo32a(true), oVar.m135a());
+                                DrawingUtils.drawFocus(graphics, i5, i3, oVar.mo32a(true), oVar.m135a());
                             }
                         }
                         if (c != 'i') {
@@ -573,11 +573,11 @@ public final class Window {
                         cVar = cVar2;
                         break;
                     case 'y':
-                        cVar = this.pageImageData.f455a[C0010k.m74a(this.pageImageData.f453a, i7)];
+                        cVar = this.pageImageData.page_fonts[DrawingUtils.m74a(this.pageImageData.f453a, i7)];
                         i6 = i7 + 2;
                         break;
                     case 'z':
-                        i5 += C0010k.m74a(this.pageImageData.f453a, i7);
+                        i5 += DrawingUtils.m74a(this.pageImageData.f453a, i7);
                         i6 = i7 + 2;
                         cVar = cVar2;
                         break;
@@ -610,11 +610,11 @@ public final class Window {
                     int i2 = this.pageImageData.f465b ? 0 : 3;
                     int i3 = (this.pageImageData.f466b[min] - this.pageImageData.f460a[min]) - i2;
                     int i4 = i2 + this.pageImageData.f466b[max];
-                    int i5 = this.f331q;
+                    int i5 = this.width;
                     if (this.isVisible) {
                         i = 6;
                     }
-                    this.f304a.mo63a(this.f333s, this.f334t + i3 + this.f322g, i5 - i, i4 - i3);
+                    this.f304a.mo63a(this.x, this.y + i3 + this.offset, i5 - i, i4 - i3);
                 }
             }
         }
@@ -627,7 +627,7 @@ public final class Window {
         }
         int f = this.pageImageData.m359f(i);
         if (this.pageImageData.f453a[i] == 76 || this.pageImageData.f453a[i] == 87 || this.pageImageData.f453a[i] == 80 || this.pageImageData.f453a[i] == 109) {
-            int a = C0010k.m74a(this.pageImageData.f453a, i + 1) + i + 2;
+            int a = DrawingUtils.m74a(this.pageImageData.f453a, i + 1) + i + 2;
             if (f < this.pageImageData.f451a && a == this.pageImageData.f454a[f + 1] - 1) {
                 f++;
             }
@@ -637,36 +637,36 @@ public final class Window {
         }
         int a2 = mo39a(i);
         int i2 = this.pageImageData.f466b[f] - this.pageImageData.f460a[f];
-        int abs = Math.abs(this.f322g);
-        return a2 + i2 > abs && i2 < this.progress + abs;
+        int abs = Math.abs(this.offset);
+        return a2 + i2 > abs && i2 < this.height + abs;
     }
 
     /* renamed from: a */
     private boolean m154a(int i, int i2, boolean z) {
-        int i3 = this.f322g;
+        int i3 = this.offset;
         this.f315c = false;
         this.f320f = -2;
         if (this.pageImageData != null) {
             int i4 = this.pageImageData.width;
-            if (i4 < this.progress) {
+            if (i4 < this.height) {
                 return false;
             }
             if (i == f292z) {
-                if (this.f322g == 0) {
+                if (this.offset == 0) {
                     return false;
                 }
-                if (this.f322g + i2 <= 0) {
-                    this.f322g += i2;
+                if (this.offset + i2 <= 0) {
+                    this.offset += i2;
                 } else {
-                    this.f322g = 0;
+                    this.offset = 0;
                 }
-            } else if (this.f322g == this.progress - i4) {
+            } else if (this.offset == this.height - i4) {
                 return false;
             } else {
-                if (Math.abs(this.f322g) + this.progress + i2 < i4) {
-                    this.f322g -= i2;
+                if (Math.abs(this.offset) + this.height + i2 < i4) {
+                    this.offset -= i2;
                 } else {
-                    this.f322g = this.progress - i4;
+                    this.offset = this.height - i4;
                 }
             }
         }
@@ -677,19 +677,19 @@ public final class Window {
         if (z) {
             this.f304a.mo70c();
         }
-        return i3 != this.f322g;
+        return i3 != this.offset;
     }
 
     /* renamed from: a */
     private boolean mo42a(String str, boolean z, boolean z2, String str2, String str3) {
-        RunnableC0020u a;
+        PageDataRunnable a;
         try {
             m173a();
-            if (C0010k.f146J) {
+            if (DrawingUtils.f146J) {
                 this.f304a.mo66a(this.pageImageData);
             }
-            if (!C0010k.f146J || z || str3 != null || (a = this.f304a.mo59a(str, str)) == null) {
-                this.f311b = new RunnableC0020u(this.f304a, this, str, str2, str3);
+            if (!DrawingUtils.f146J || z || str3 != null || (a = this.f304a.mo59a(str, str)) == null) {
+                this.f311b = new PageDataRunnable(this.f304a, this, str, str2, str3);
                 this.f311b.f512p = z2;
                 this.f311b.m341a(z);
             } else {
@@ -707,7 +707,7 @@ public final class Window {
                             break;
                         } else if (m171a(i).equals(this.pageImageData.mo95a(true))) {
                             this.f318e = mo41a(1, i);
-                            this.f322g = this.f318e;
+                            this.offset = this.f318e;
                             this.f320f = mo41a(0, i);
                             break;
                         } else {
@@ -734,13 +734,13 @@ public final class Window {
         if (this.pageImageData == null || this.pageImageData.f454a == null) {
             return -1;
         }
-        int c = this.pageImageData.m350c(Math.abs(this.f322g) + this.progress);
+        int c = this.pageImageData.m350c(Math.abs(this.offset) + this.height);
         if (c < 0) {
             c = this.pageImageData.f451a - 1;
         }
         int a = this.pageImageData.mo92a((c < 0 || c > this.pageImageData.f451a) ? this.pageImageData.f454a[this.pageImageData.f451a] : this.pageImageData.f454a[c + 1], this.f336v, this.pageImageData.f488f);
         int d = this.pageImageData.m353d(a);
-        int abs = this.progress + Math.abs(this.f322g);
+        int abs = this.height + Math.abs(this.offset);
         while (a >= 0 && d >= 0 && this.pageImageData.f466b[this.pageImageData.f490f[d]] > abs) {
             a = this.pageImageData.mo92a(a - 1, this.f336v, false);
             d = this.pageImageData.m353d(a);
@@ -785,11 +785,11 @@ public final class Window {
             this.f313c--;
         }
         char[] charArray = str.toCharArray();
-        byte[] bArr = new byte[(C0010k.m59a(charArray, 0, str.length(), (byte[]) null, 6, true) + 4 + 2)];
-        C0010k.m90a((short) this.f296E, bArr, 0);
-        C0010k.m90a((short) this.f322g, bArr, 2);
-        C0010k.m59a(charArray, 0, str.length(), bArr, 6, false);
-        C0010k.m90a((short) str.length(), bArr, 4);
+        byte[] bArr = new byte[(DrawingUtils.m59a(charArray, 0, str.length(), (byte[]) null, 6, true) + 4 + 2)];
+        DrawingUtils.m90a((short) this.f296E, bArr, 0);
+        DrawingUtils.m90a((short) this.offset, bArr, 2);
+        DrawingUtils.m59a(charArray, 0, str.length(), bArr, 6, false);
+        DrawingUtils.m90a((short) str.length(), bArr, 4);
         if (this.f313c <= -1 || this.f313c >= this.f310b.size()) {
             this.f310b.addElement(bArr);
         } else {
@@ -809,7 +809,7 @@ public final class Window {
 
     /* renamed from: b */
     private void drawProgressBar(Graphics graphics) {
-        if (this.pageImageData == null || this.pageImageData.width <= this.progress || this.pageImageData.width <= 0) {
+        if (this.pageImageData == null || this.pageImageData.width <= this.height || this.pageImageData.width <= 0) {
             this.isVisible = false;
             return;
         }
@@ -817,12 +817,12 @@ public final class Window {
         int color = graphics.getColor();
         int clipX = graphics.getClipX();
         int clipY = graphics.getClipY();
-        int i = this.progress;
-        int max = Math.max(clipX, (this.f331q + this.f333s) - 6);
-        int max2 = Math.max(clipY, this.f334t);
+        int i = this.height;
+        int max = Math.max(clipX, (this.width + this.x) - 6);
+        int max2 = Math.max(clipY, this.y);
         int i2 = i - 2;
         int i3 = ((((i * 1024) / this.pageImageData.width) * i2) / 1024) + 3;
-        int min = Math.abs(this.f322g) + this.progress >= this.pageImageData.width ? (i2 - i3) + 1 : Math.min((((Math.abs(this.f322g) * 1024) / this.pageImageData.width) * i) / 1024, (i2 - i3) + 1);
+        int min = Math.abs(this.offset) + this.height >= this.pageImageData.width ? (i2 - i3) + 1 : Math.min((((Math.abs(this.offset) * 1024) / this.pageImageData.width) * i) / 1024, (i2 - i3) + 1);
         graphics.setColor(SKIN_COLORS[16]);
         graphics.drawLine(max, max2, max, (max2 + i) - 1);
         graphics.drawLine((max + 6) - 1, max2, (max + 6) - 1, (max2 + i) - 1);
@@ -836,30 +836,30 @@ public final class Window {
             graphics.drawLine(max + 1 + i4, max2, max + 1 + i4, (max2 + i) - 1);
         }
         int i5 = max + 1;
-        int i6 = this.f334t + min;
+        int i6 = this.y + min;
         int i7 = i5 + 3;
-        int max3 = this.f334t + min + Math.max(i3, 4);
+        int max3 = this.y + min + Math.max(i3, 4);
         graphics.setColor(SKIN_COLORS[16]);
-        graphics.drawLine(i5 - 1, i6, i7 + 1 + C0010k.f185g, i6);
+        graphics.drawLine(i5 - 1, i6, i7 + 1 + DrawingUtils.f185g, i6);
         graphics.drawLine(i5 - 1, max3, i7 + 1, max3);
         graphics.setColor(SKIN_COLORS[17]);
         graphics.drawLine(i5, i6 + 1, i5, max3 - 1);
-        graphics.drawLine(i5, i6 + 1, C0010k.f185g + i7, i6 + 1);
+        graphics.drawLine(i5, i6 + 1, DrawingUtils.f185g + i7, i6 + 1);
         graphics.setColor(SKIN_COLORS[18]);
-        graphics.drawLine(i5 + 1, max3 - 1, C0010k.f185g + i7, max3 - 1);
+        graphics.drawLine(i5 + 1, max3 - 1, DrawingUtils.f185g + i7, max3 - 1);
         graphics.drawLine(i7, max3 - 1, i7, i6 + 2);
         graphics.setColor(SKIN_COLORS[19]);
         graphics.drawLine(i5 + 1, i6 + 2, i5 + 1, max3 - 2);
-        graphics.drawLine(i5 + 1, i6 + 2, i5 + 2 + C0010k.f185g, i6 + 2);
+        graphics.drawLine(i5 + 1, i6 + 2, i5 + 2 + DrawingUtils.f185g, i6 + 2);
         graphics.setColor(SKIN_COLORS[20]);
         graphics.drawLine(i5 + 2, i6 + 3, i5 + 2, max3 - 2);
         graphics.setColor(color);
-        this.f294C = i3;
-        this.f295D = min;
+        this.barWidth = i3;
+        this.barOffset = min;
     }
 
     /* renamed from: b */
-    private void m161b(RunnableC0020u uVar) {
+    private void m161b(PageDataRunnable uVar) {
         if (uVar != null && uVar.f456a != null && uVar.m333a() != null) {
             if (this.f302a == null) {
                 this.f302a = new Vector(30);
@@ -880,8 +880,8 @@ public final class Window {
     /* renamed from: c */
     private void m162c(int i) {
         this.f315c = false;
-        if (this.pageImageData != null && this.f304a != null && this.pageImageData.width > this.progress && this.pageImageData.f466b != null && i > 0 && i <= this.pageImageData.f451a) {
-            this.f322g = -this.pageImageData.f466b[i - 1];
+        if (this.pageImageData != null && this.f304a != null && this.pageImageData.width > this.height && this.pageImageData.f466b != null && i > 0 && i <= this.pageImageData.f451a) {
+            this.offset = -this.pageImageData.f466b[i - 1];
             m183b(mo40a());
             this.f304a.mo70c();
         }
@@ -894,21 +894,21 @@ public final class Window {
             int clipY = graphics.getClipY();
             int clipWidth = graphics.getClipWidth();
             int clipHeight = graphics.getClipHeight();
-            if (this.pageImageData.width > this.progress) {
-                if (C0010k.m95a(clipX, clipY, clipWidth, clipHeight, this.f331q - 6, 0, 6, this.progress)) {
-                    clipWidth = ((this.f333s + this.f331q) - clipX) - 6;
+            if (this.pageImageData.width > this.height) {
+                if (DrawingUtils.m95a(clipX, clipY, clipWidth, clipHeight, this.width - 6, 0, 6, this.height)) {
+                    clipWidth = ((this.x + this.width) - clipX) - 6;
                 }
-                if (this.f322g > 0) {
-                    this.f322g = 0;
-                } else if (this.f322g < this.progress - this.pageImageData.width) {
-                    this.f322g = this.progress - this.pageImageData.width;
+                if (this.offset > 0) {
+                    this.offset = 0;
+                } else if (this.offset < this.height - this.pageImageData.width) {
+                    this.offset = this.height - this.pageImageData.width;
                 }
             }
-            int c = this.pageImageData.m350c(this.f322g - (clipY - this.f334t));
-            int c2 = this.pageImageData.m350c((this.f322g - (clipY - this.f334t)) - clipHeight);
+            int c = this.pageImageData.m350c(this.offset - (clipY - this.y));
+            int c2 = this.pageImageData.m350c((this.offset - (clipY - this.y)) - clipHeight);
             if (c != -1) {
                 short s = c2 == -1 ? this.pageImageData.f451a : c2;
-                int i = this.f322g + 0;
+                int i = this.offset + 0;
                 if (c > 0) {
                     i += this.pageImageData.f466b[c - 1];
                 }
@@ -917,33 +917,33 @@ public final class Window {
                     m183b(mo40a());
                 }
                 graphics.setClip(clipX, clipY, clipWidth, clipHeight);
-                int i2 = i + this.f334t;
+                int i2 = i + this.y;
                 for (int i3 = c; i3 <= s; i3++) {
-                    m151a(graphics, i3, this.f333s, i2, false, false);
+                    m151a(graphics, i3, this.x, i2, false, false);
                     i2 += this.pageImageData.f460a[i3];
                 }
                 if (i2 < clipHeight + clipY) {
                     graphics.setColor(16777215);
-                    graphics.fillRect(0, i2, this.f331q, (clipY + clipHeight) - i2);
+                    graphics.fillRect(0, i2, this.width, (clipY + clipHeight) - i2);
                 }
-                if (i2 > this.progress) {
+                if (i2 > this.height) {
                     this.f317d = true;
-                    this.f298G = this.f322g;
+                    this.f298G = this.offset;
                     this.f299H = this.f300a;
                 }
                 if (!(this.f336v == 0 || this.pageImageData.f465b || this.f296E == -1)) {
                     int max = Math.max(c, (int) this.pageImageData.f485e[this.f296E]);
                     int min = Math.min(s, (int) this.pageImageData.f490f[this.f296E]);
-                    int i4 = this.f322g + this.f334t;
+                    int i4 = this.offset + this.y;
                     int i5 = max > 0 ? i4 + this.pageImageData.f466b[max - 1] : i4;
                     int i6 = i5;
                     for (int i7 = max; i7 <= min; i7++) {
-                        m151a(graphics, i7, this.f333s, i6, true, true);
+                        m151a(graphics, i7, this.x, i6, true, true);
                         i6 += this.pageImageData.f460a[i7];
                     }
                     int i8 = i5;
                     for (int i9 = max; i9 <= min; i9++) {
-                        m151a(graphics, i9, this.f333s, i8, true, false);
+                        m151a(graphics, i9, this.x, i8, true, false);
                         i8 += this.pageImageData.f460a[i9];
                     }
                 }
@@ -961,16 +961,16 @@ public final class Window {
     }
 
     /* renamed from: d */
-    private void m165d(Graphics graphics) {
+    private void drawBG(Graphics graphics) {
         if ((this.pageImageData != null && graphics != null && this.f312b && !this.pageImageData.f500j) || (this.pageImageData == null && graphics != null && this.f312b)) {
             int clipX = graphics.getClipX();
             int clipY = graphics.getClipY();
             int clipWidth = graphics.getClipWidth();
             int clipHeight = graphics.getClipHeight();
-            graphics.setClip(this.f333s, this.f334t, this.f331q, this.progress);
+            graphics.setClip(this.x, this.y, this.width, this.height);
             int color = graphics.getColor();
             graphics.setColor(16777215);
-            graphics.fillRect(this.f333s, this.f334t, this.f331q, this.progress);
+            graphics.fillRect(this.x, this.y, this.width, this.height);
             graphics.setColor(color);
             graphics.setClip(clipX, clipY, clipWidth, clipHeight);
             this.f317d = false;
@@ -990,26 +990,26 @@ public final class Window {
         }
         int i = this.pageImageData.f466b[f] - this.pageImageData.f460a[f];
         int i2 = a + i;
-        int abs = Math.abs(this.f322g);
-        int i3 = this.f322g;
+        int abs = Math.abs(this.offset);
+        int i3 = this.offset;
         if (i < abs && f != -1) {
-            this.f322g = -i;
-        } else if (i2 > this.progress + abs && f != -1) {
-            this.f322g = -(i2 - this.progress);
+            this.offset = -i;
+        } else if (i2 > this.height + abs && f != -1) {
+            this.offset = -(i2 - this.height);
         }
-        if (this.pageImageData.width > this.progress) {
-            if (this.f322g > 0) {
-                this.f322g = 0;
-            } else if (this.f322g < this.progress - this.pageImageData.width) {
-                this.f322g = this.progress - this.pageImageData.width;
+        if (this.pageImageData.width > this.height) {
+            if (this.offset > 0) {
+                this.offset = 0;
+            } else if (this.offset < this.height - this.pageImageData.width) {
+                this.offset = this.height - this.pageImageData.width;
             }
         }
-        return i3 != this.f322g;
+        return i3 != this.offset;
     }
 
     /* renamed from: e */
     private void m167e(int i, int i2) {
-        if (C0010k.f201p) {
+        if (DrawingUtils.f201p) {
             m154a(i, i2 / 6, true);
             this.f304a.serviceRepaints();
             m154a(i, i2 / 3, true);
@@ -1047,7 +1047,7 @@ public final class Window {
             int b = mo47b(i);
             if (!m153a(b)) {
                 boolean a = m154a(i, i2, false);
-                if (this.pageImageData.f488f && ((i == f292z && this.f322g == 0) || (i == f285A && this.f322g == this.progress - this.pageImageData.width))) {
+                if (this.pageImageData.f488f && ((i == f292z && this.offset == 0) || (i == f285A && this.offset == this.height - this.pageImageData.width))) {
                     int i3 = i == f292z ? f285A : f292z;
                     while (!m153a(b)) {
                         m154a(i3, i2, false);
@@ -1081,12 +1081,12 @@ public final class Window {
         String a;
         if (this.pageImageData != null && this.pageImageData.f499j != 2 && !this.f306a && this.f310b != null && this.f313c > -1 && this.f313c < this.f310b.size() && (a = this.pageImageData.mo95a(true)) != null) {
             char[] charArray = a.toCharArray();
-            byte[] bArr = new byte[(C0010k.m59a(charArray, 0, a.length(), (byte[]) null, 6, true) + 4 + 2)];
+            byte[] bArr = new byte[(DrawingUtils.m59a(charArray, 0, a.length(), (byte[]) null, 6, true) + 4 + 2)];
             if (bArr.length >= 4) {
-                C0010k.m90a((short) this.f296E, bArr, 0);
-                C0010k.m90a((short) this.f322g, bArr, 2);
-                C0010k.m59a(charArray, 0, a.length(), bArr, 6, false);
-                C0010k.m90a((short) a.length(), bArr, 4);
+                DrawingUtils.m90a((short) this.f296E, bArr, 0);
+                DrawingUtils.m90a((short) this.offset, bArr, 2);
+                DrawingUtils.m59a(charArray, 0, a.length(), bArr, 6, false);
+                DrawingUtils.m90a((short) a.length(), bArr, 4);
                 this.f310b.setElementAt(bArr, this.f313c);
             }
         }
@@ -1100,7 +1100,7 @@ public final class Window {
                 if (bArr == null) {
                     return null;
                 }
-                return C0010k.m67a(bArr, 4);
+                return DrawingUtils.m67a(bArr, 4);
             }
         } catch (Throwable th) {
         }
@@ -1109,7 +1109,7 @@ public final class Window {
 
     /* renamed from: a */
     public final C0014o m172a(int i) {
-        return this.pageImageData.f459a[C0010k.m74a(this.pageImageData.f453a, i + 1)];
+        return this.pageImageData.f459a[DrawingUtils.m74a(this.pageImageData.f453a, i + 1)];
     }
 
     /* renamed from: a */
@@ -1128,11 +1128,11 @@ public final class Window {
 
     /* renamed from: a */
     public final void m174a(int i) {
-        if (i != this.progress) {
-            this.progress = i;
-            this.f337w = this.progress / 8;
-            this.f338x = this.progress / 4;
-            this.f339y = (this.progress - C0010k.m73a(RunnableC0018s.f345a, false)) - 4;
+        if (i != this.height) {
+            this.height = i;
+            this.f337w = this.height / 8;
+            this.f338x = this.height / 4;
+            this.f339y = (this.height - DrawingUtils.m73a(RunnableC0018s.f345a, false)) - 4;
         }
     }
 
@@ -1143,9 +1143,9 @@ public final class Window {
         boolean z;
         boolean z2 = i2 > 0;
         try {
-            boolean z3 = i2 > C0010k.f163b && !this.pageImageData.f488f;
+            boolean z3 = i2 > DrawingUtils.f163b && !this.pageImageData.f488f;
             boolean z4 = false;
-            if (this.f304a.f428i || (C0010k.f137A && (i == 49 || i == 51 || i == 55 || i == 57 || i == 48 || i == 35))) {
+            if (this.f304a.f428i || (DrawingUtils.f137A && (i == 49 || i == 51 || i == 55 || i == 57 || i == 48 || i == 35))) {
                 this.f304a.f428i = false;
                 switch (i) {
                     case 35:
@@ -1168,7 +1168,7 @@ public final class Window {
                         z = true;
                         break;
                     case 48:
-                        if (this.pageImageData != null && !this.f304a.f385a.pageImageData.m349b()) {
+                        if (this.pageImageData != null && !this.f304a.window.pageImageData.m349b()) {
                             this.f304a.mo64a("opera:reload");
                             z = false;
                             break;
@@ -1184,10 +1184,10 @@ public final class Window {
                         z = false;
                         break;
                     case 51:
-                        int abs = Math.abs(this.f322g);
+                        int abs = Math.abs(this.offset);
                         if (!(this.pageImageData == null || this.pageImageData.f466b == null)) {
                             int i3 = this.pageImageData.f474d;
-                            if (abs == this.pageImageData.width - this.progress) {
+                            if (abs == this.pageImageData.width - this.height) {
                                 mo55g();
                             } else if (i3 > 0 && abs >= this.pageImageData.f466b[i3 - 1]) {
                                 mo56h();
@@ -1210,7 +1210,7 @@ public final class Window {
                         z = false;
                         break;
                     case 54:
-                        if (this.pageImageData != null && !this.f304a.f385a.pageImageData.m349b()) {
+                        if (this.pageImageData != null && !this.f304a.window.pageImageData.m349b()) {
                             this.f304a.mo64a("opera:pageinfo");
                             z = false;
                             break;
@@ -1218,7 +1218,7 @@ public final class Window {
                         z = false;
                         break;
                     case 55:
-                        if (this.pageImageData != null && !this.f304a.f385a.pageImageData.m349b()) {
+                        if (this.pageImageData != null && !this.f304a.window.pageImageData.m349b()) {
                             this.f304a.mo64a("opera:bookmark");
                             z = false;
                             break;
@@ -1239,10 +1239,10 @@ public final class Window {
                     return;
                 }
             }
-            int i4 = z4 ? 8 : (C0010k.f137A || i < 48 || i > 57 || this.pageImageData.m356e(this.f300a) != 2) ? i : 8;
+            int i4 = z4 ? 8 : (DrawingUtils.f137A || i < 48 || i > 57 || this.pageImageData.m356e(this.f300a) != 2) ? i : 8;
             switch (i4) {
                 case 1:
-                    if (this.f322g == 0) {
+                    if (this.offset == 0) {
                         z3 = false;
                     }
                     if (z3) {
@@ -1253,7 +1253,7 @@ public final class Window {
                         return;
                     }
                 case 2:
-                    if (z2 || !C0010k.f139C) {
+                    if (z2 || !DrawingUtils.f139C) {
                         m154a(f292z, this.f339y, true);
                         return;
                     } else {
@@ -1261,7 +1261,7 @@ public final class Window {
                         return;
                     }
                 case 5:
-                    if (z2 || !C0010k.f139C) {
+                    if (z2 || !DrawingUtils.f139C) {
                         m154a(f285A, this.f339y, true);
                         return;
                     } else {
@@ -1269,7 +1269,7 @@ public final class Window {
                         return;
                     }
                 case 6:
-                    if ((this.pageImageData == null || this.pageImageData.width > Math.abs(this.f322g) + this.progress) ? z3 : false) {
+                    if ((this.pageImageData == null || this.pageImageData.width > Math.abs(this.offset) + this.height) ? z3 : false) {
                         m154a(f285A, this.f337w, true);
                         return;
                     } else {
@@ -1284,9 +1284,9 @@ public final class Window {
                             if (e == 0) {
                                 String a2 = this.pageImageData.m334a(this.f300a);
                                 if (a2 != null) {
-                                    String a3 = C0010k.m104b(a2).startsWith("javascript:") ? RunnableC0020u.m251a(this.pageImageData.f459a, (C0014o) null) : null;
+                                    String a3 = DrawingUtils.m104b(a2).startsWith("javascript:") ? PageDataRunnable.m251a(this.pageImageData.f459a, (C0014o) null) : null;
                                     if (this.f304a != null) {
-                                        this.f304a.f423g = C0010k.f200o && i4 == 8 && a2.equals("opera:openurl");
+                                        this.f304a.f423g = DrawingUtils.f200o && i4 == 8 && a2.equals("opera:openurl");
                                     }
                                     if (a2.startsWith("#")) {
                                         m170j();
@@ -1300,7 +1300,7 @@ public final class Window {
                                 return;
                             } else if (e == 5) {
                                 String a4 = this.pageImageData.m334a(this.f300a);
-                                if (a4 != null && C0010k.f168b) {
+                                if (a4 != null && DrawingUtils.f168b) {
                                     this.f304a.f406d = a4;
                                     openUrl("opera:platformrequestdialog", false, false, (String) null, (String) null);
                                     return;
@@ -1311,19 +1311,19 @@ public final class Window {
                                 if (a5 == null) {
                                     return;
                                 }
-                                if (C0010k.f174c) {
+                                if (DrawingUtils.f174c) {
                                     this.f304a.f406d = a5;
                                     openUrl("opera:platformrequestdialog", false, false, (String) null, (String) null);
                                     return;
                                 }
-                                this.f304a.mo68b(C0010k.m62a(73));
+                                this.f304a.mo68b(DrawingUtils.m62a(73));
                                 return;
                             } else if (e == 7) {
                                 String a6 = this.pageImageData.m334a(this.f300a);
                                 if (a6 == null) {
                                     return;
                                 }
-                                if (C0010k.f178d) {
+                                if (DrawingUtils.f178d) {
                                     this.f304a.f411e = a6.substring(0, a6.indexOf(0));
                                     String substring = a6.substring(this.f304a.f411e.length() + 1);
                                     this.f304a.f417f = substring.substring(0, substring.indexOf(0));
@@ -1331,7 +1331,7 @@ public final class Window {
                                     openUrl("opera:sendsmsdialog", false, false, (String) null, (String) null);
                                     return;
                                 }
-                                this.f304a.mo68b(C0010k.m62a(105));
+                                this.f304a.mo68b(DrawingUtils.m62a(105));
                                 return;
                             } else if (e == 1) {
                                 C0014o a7 = m172a(this.f300a);
@@ -1339,7 +1339,7 @@ public final class Window {
                                 if (a7 != null) {
                                     str = a7.f278d;
                                 }
-                                String a8 = RunnableC0020u.m251a(this.pageImageData.f459a, a7);
+                                String a8 = PageDataRunnable.m251a(this.pageImageData.f459a, a7);
                                 if (str == null) {
                                     str = this.pageImageData.f443a;
                                 }
@@ -1355,7 +1355,7 @@ public final class Window {
                                 return;
                             } else if (e == 2) {
                                 C0014o a9 = z4 ? this.f304a.f394b : m172a(this.f300a);
-                                if (C0010k.f203r) {
+                                if (DrawingUtils.f203r) {
                                     this.f304a.setFullScreenMode(false);
                                 }
                                 int i5 = 400;
@@ -1368,7 +1368,7 @@ public final class Window {
                                 if ((a10.equals("opera:recommend") && str2.equals("tno")) || (a10.equals("opera:sendgratissms") && str2.equals("phone"))) {
                                     i6 = 3;
                                 } else if (a9 != null && a9.f278d != null && a9.f278d.equals("goto:///")) {
-                                    this.f304a.f423g = C0010k.f200o && i4 == 8;
+                                    this.f304a.f423g = DrawingUtils.f200o && i4 == 8;
                                     this.f304a.f384a = a9;
                                     this.f304a.mo73e();
                                     return;
@@ -1379,7 +1379,7 @@ public final class Window {
                                 if (str3.length() > i5) {
                                     i5 = str3.length() * 2;
                                 }
-                                String a11 = C0010k.m62a((a9.f278d == null || !a9.f278d.equals("search:///")) ? 48 : 55);
+                                String a11 = DrawingUtils.m62a((a9.f278d == null || !a9.f278d.equals("search:///")) ? 48 : 55);
                                 try {
                                     iVar = new C0008i(a11, str3, i5, i6, a9);
                                 } catch (IllegalArgumentException e2) {
@@ -1388,7 +1388,7 @@ public final class Window {
                                 iVar.addCommand(RunnableC0018s.f366m);
                                 iVar.addCommand(RunnableC0018s.f352d);
                                 RunnableC0018s.m204a((Screen) iVar);
-                                this.f304a.f423g = C0010k.f200o && i4 == 8;
+                                this.f304a.f423g = DrawingUtils.f200o && i4 == 8;
                                 iVar.setCommandListener(this.f304a);
                                 this.f304a.f381a.setCurrent(iVar);
                                 return;
@@ -1443,7 +1443,7 @@ public final class Window {
             }
         } catch (Throwable th) {
             if (!(th instanceof OutOfMemoryError)) {
-                this.f304a.mo68b(C0010k.m62a(72));
+                this.f304a.mo68b(DrawingUtils.m62a(72));
                 this.f304a.mo76h();
             } else if (this.f304a != null) {
                 this.f304a.m227a(2);
@@ -1475,31 +1475,31 @@ public final class Window {
         int i = clipX + clipWidth;
         int i2 = clipY + clipHeight;
         try {
-            int max = Math.max(clipX, this.f333s);
-            int max2 = Math.max(this.f334t, clipY);
-            int min = Math.min(i, this.f331q + this.f333s);
-            int min2 = Math.min(i2, this.progress + this.f334t);
+            int max = Math.max(clipX, this.x);
+            int max2 = Math.max(this.y, clipY);
+            int min = Math.min(i, this.width + this.x);
+            int min2 = Math.min(i2, this.height + this.y);
             if (max < min && max2 < min2) {
                 graphics.setClip(max, max2, min - max, min2 - max2);
-                m165d(graphics);
-                if (this.f315c && this.f324h > 1 && this.pageImageData != null && this.pageImageData.width > this.progress && ((this.f326i == f289k && C0010k.f144H) || this.f326i == f290l)) {
-                    if (this.pageImageData.f466b[this.f324h - 1] > this.pageImageData.width - this.progress) {
-                        this.f322g = this.progress - this.pageImageData.width;
+                drawBG(graphics);
+                if (this.f315c && this.f324h > 1 && this.pageImageData != null && this.pageImageData.width > this.height && ((this.f326i == f289k && DrawingUtils.f144H) || this.f326i == f290l)) {
+                    if (this.pageImageData.f466b[this.f324h - 1] > this.pageImageData.width - this.height) {
+                        this.offset = this.height - this.pageImageData.width;
                     } else {
-                        this.f322g = -this.pageImageData.f466b[this.f324h - 1];
+                        this.offset = -this.pageImageData.f466b[this.f324h - 1];
                     }
                     this.f315c = false;
                     this.f324h = -1;
                     this.f300a = -1;
                     this.f320f = -2;
                 } else if (this.f315c && this.f326i == f291m && this.pageImageData != null && this.pageImageData.f472c != null) {
-                    this.f322g = this.f318e;
+                    this.offset = this.f318e;
                     this.f315c = false;
                 }
                 drawProgressBar(graphics);
                 if (this.pageImageData != null && (this.pageImageData.f496h || (this.pageImageData.m351c() != null && this.pageImageData.m351c().equals("opera:alert")))) {
                     this.f317d = false;
-                } else if (this.f317d && this.f298G == this.f322g && this.f299H == this.f300a) {
+                } else if (this.f317d && this.f298G == this.offset && this.f299H == this.f300a) {
                     this.f317d = true;
                 } else {
                     this.f317d = false;
@@ -1521,17 +1521,17 @@ public final class Window {
         String a;
         if (oVar != null) {
             if (this.pageImageData != null && this.pageImageData.f483e && oVar.f265a.equals("source") && (a = oVar.m137a()) != null) {
-                C0010k.f183f = a;
-                C0010k.m106b();
+                DrawingUtils.google_string = a;
+                DrawingUtils.m106b();
             }
             if (oVar.f276c) {
-                this.f304a.mo65a(this.pageImageData.f443a, this.pageImageData.f443a, RunnableC0020u.m251a(this.pageImageData.f459a, oVar));
+                this.f304a.mo65a(this.pageImageData.f443a, this.pageImageData.f443a, PageDataRunnable.m251a(this.pageImageData.f459a, oVar));
             }
         }
     }
 
     /* renamed from: a */
-    public final synchronized void mo45a(RunnableC0020u uVar) {
+    public final synchronized void mo45a(PageDataRunnable uVar) {
         if (uVar != null) {
             switch (uVar.f494h) {
                 case 1:
@@ -1543,43 +1543,43 @@ public final class Window {
                     this.pageImageData = this.f311b;
                     mo49c();
                     this.f300a = -1;
-                    this.f322g = 0;
+                    this.offset = 0;
                     break;
                 case 8:
                     this.f304a.mo74f();
-                    if (uVar.width <= this.progress) {
+                    if (uVar.width <= this.height) {
                         this.f312b = true;
                     }
                     String a = uVar.m333a();
                     if (a != null) {
                         if (a.startsWith("opera:menu") || a.startsWith("opera:bookmarksmenu")) {
-                            this.progress = Math.min(uVar.width, (this.f304a.getHeight() - 4) - this.f304a.f388b);
-                            this.f334t = ((this.f304a.getHeight() - this.progress) - 2) - this.f304a.f388b;
-                            this.f331q = uVar.f497i + this.f329o + this.f330p;
-                            if (uVar.width > this.progress) {
-                                this.f331q += 9;
+                            this.height = Math.min(uVar.width, (this.f304a.getHeight() - 4) - this.f304a.f388b);
+                            this.y = ((this.f304a.getHeight() - this.height) - 2) - this.f304a.f388b;
+                            this.width = uVar.f497i + this.f329o + this.f330p;
+                            if (uVar.width > this.height) {
+                                this.width += 9;
                             }
-                            this.f331q = Math.min(this.f331q, this.f304a.getWidth() - 2);
-                            this.f333s = 0;
+                            this.width = Math.min(this.width, this.f304a.getWidth() - 2);
+                            this.x = 0;
                             this.f312b = false;
                             uVar.m358e();
                         } else if (a.startsWith("opera:submenu")) {
-                            this.progress = Math.min(uVar.width, (this.f304a.getHeight() - 4) - this.f304a.f388b);
-                            this.f334t = Math.min(((this.f304a.f395b.f334t + this.f304a.f395b.progress) - 14) - this.progress, ((this.f304a.getHeight() - this.progress) - 2) - this.f304a.f388b);
-                            this.f334t = Math.max(this.f334t, 2);
-                            this.f331q = uVar.f497i + this.f329o + this.f330p;
-                            if (uVar.width > this.progress) {
-                                this.f331q += 9;
+                            this.height = Math.min(uVar.width, (this.f304a.getHeight() - 4) - this.f304a.f388b);
+                            this.y = Math.min(((this.f304a.f395b.y + this.f304a.f395b.height) - 14) - this.height, ((this.f304a.getHeight() - this.height) - 2) - this.f304a.f388b);
+                            this.y = Math.max(this.y, 2);
+                            this.width = uVar.f497i + this.f329o + this.f330p;
+                            if (uVar.width > this.height) {
+                                this.width += 9;
                             }
-                            this.f331q = Math.min(this.f331q, this.f304a.getWidth() - 4);
-                            this.f333s = Math.min(this.f333s, (this.f304a.getWidth() - this.f331q) - 10);
-                            this.f333s = Math.max(this.f333s, 2);
+                            this.width = Math.min(this.width, this.f304a.getWidth() - 4);
+                            this.x = Math.min(this.x, (this.f304a.getWidth() - this.width) - 10);
+                            this.x = Math.max(this.x, 2);
                             this.f312b = true;
                         } else if (a.startsWith("opera:alert")) {
-                            this.f331q = Math.max(64, uVar.f497i + this.f329o + this.f330p);
-                            this.progress = uVar.width;
-                            this.f333s = (this.f304a.getWidth() - this.f331q) / 2;
-                            this.f334t = (this.f304a.getHeight() - this.progress) / 2;
+                            this.width = Math.max(64, uVar.f497i + this.f329o + this.f330p);
+                            this.height = uVar.width;
+                            this.x = (this.f304a.getWidth() - this.width) / 2;
+                            this.y = (this.f304a.getHeight() - this.height) / 2;
                             this.f312b = true;
                         }
                     }
@@ -1587,7 +1587,7 @@ public final class Window {
                     break;
                 case 9:
                     if (this.f304a != null) {
-                        this.f304a.mo68b(C0010k.m62a(69));
+                        this.f304a.mo68b(DrawingUtils.m62a(69));
                         break;
                     }
                     break;
@@ -1612,7 +1612,7 @@ public final class Window {
 
     /* renamed from: a */
     public final boolean m181a(int i, int i2) {
-        return i >= this.f333s && i <= this.f333s + this.f331q && i2 >= this.f334t && i2 <= this.f334t + this.progress;
+        return i >= this.x && i <= this.x + this.width && i2 >= this.y && i2 <= this.y + this.height;
     }
 
     /* renamed from: b */
@@ -1620,7 +1620,7 @@ public final class Window {
         if (this.pageImageData != null) {
             this.f315c = true;
             this.f326i = f291m;
-            this.f318e = this.f322g;
+            this.f318e = this.offset;
             this.f320f = this.f296E;
             openUrl(this.pageImageData.m333a(), true, false, this.pageImageData.f443a, this.pageImageData.m354d());
         }
@@ -1641,7 +1641,7 @@ public final class Window {
         this.f325h = false;
         this.f297F = i2;
         int b = mo48b(i, i2);
-        int i4 = this.f333s + this.f331q;
+        int i4 = this.x + this.width;
         if (this.isVisible) {
             i3 = 6;
         }
@@ -1651,18 +1651,18 @@ public final class Window {
             } else {
                 m183b(-2);
             }
-            if (!C0010k.f143G) {
+            if (!DrawingUtils.f143G) {
                 this.f304a.repaint();
                 return;
             }
             return;
         }
-        int i5 = this.f304a.f398c + this.f295D;
-        if (i2 > i5 && i2 < this.f294C + i5) {
+        int i5 = this.f304a.f398c + this.barOffset;
+        if (i2 > i5 && i2 < this.barWidth + i5) {
             this.f325h = true;
         } else if (i2 < i5) {
             m154a(f292z, this.f339y, true);
-        } else if (i2 > i5 + this.f294C) {
+        } else if (i2 > i5 + this.barWidth) {
             m154a(f285A, this.f339y, true);
         }
     }
@@ -1732,7 +1732,7 @@ public final class Window {
         if (this.f325h) {
             int i4 = i2 - this.f297F;
             if (i4 != 0) {
-                int abs = Math.abs((i4 * this.pageImageData.width) / this.progress);
+                int abs = Math.abs((i4 * this.pageImageData.width) / this.height);
                 if (i2 > this.f297F) {
                     m154a(f285A, abs, false);
                 } else {
@@ -1807,8 +1807,8 @@ public final class Window {
     /* renamed from: g */
     public final void mo55g() {
         this.f315c = false;
-        if (this.f304a != null && this.pageImageData != null && this.pageImageData.width > this.progress) {
-            this.f322g = 0;
+        if (this.f304a != null && this.pageImageData != null && this.pageImageData.width > this.height) {
+            this.offset = 0;
             m183b(mo40a());
             this.f304a.mo70c();
         }
@@ -1817,8 +1817,8 @@ public final class Window {
     /* renamed from: h */
     public final void mo56h() {
         this.f315c = false;
-        if (this.pageImageData != null && this.f304a != null && this.pageImageData.width > this.progress) {
-            this.f322g = this.progress - this.pageImageData.width;
+        if (this.pageImageData != null && this.f304a != null && this.pageImageData.width > this.height) {
+            this.offset = this.height - this.pageImageData.width;
             m183b(mo40a());
             this.f304a.mo70c();
         }

@@ -36,7 +36,7 @@ class BitmapFont {
   bmpHeight;
 
   static async loadFontsCache() {
-    const response = await fetch("fonts/font_map");
+    const response = await fetch("assets/font_map");
     const raw_data = await response.arrayBuffer();
     const data = new Uint16Array(raw_data);
     BitmapFont.f1e = new Uint8Array(225);
@@ -124,12 +124,12 @@ class BitmapFont {
     let str;
 
     if (z) {
-      str = "fonts/sans80b.png";
+      str = "assets/sans80b.png";
       this.f6a = BitmapFont.f2f;
       this.f8b = 0;
       this.f11c = 4;
     } else {
-      str = "fonts/sans80r.png";
+      str = "assets/sans80r.png";
       this.f6a = BitmapFont.f1e;
       this.f8b = 1;
       this.f11c = 7;

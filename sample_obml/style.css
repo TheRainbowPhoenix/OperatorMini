@@ -1,0 +1,27 @@
+.table2{
+border:1px;
+border-collapse:collapse;
+border-color:#e0e0e0;
+border-style:solid;
+font-family: %FONTNAME%;
+font-size:%FONTSIZE%px;
+background-image:url('%BACKIMAGE%');
+background-repeat:no-repeat;
+}
+.td2{
+padding:0px;
+border:0px;
+border-collapse:collapse;
+border-style:solid;
+border-color:#e0e0e0;
+vertical-align:top;
+}
+.td3{
+font-family: %FONTNAME%;
+font-size:1px;
+padding:0px;
+border:0px;
+border-collapse:collapse;
+border-style:solid;
+border-color:#e0e0e0;
+}

@@ -31,14 +31,14 @@ public class C0017r extends Command {
         this.f344c = 2;
         this.f342a = false;
         this.f340a = i2;
-        this.f343b = C0010k.m56a(RunnableC0018s.f345a, str, true) + (this.f344c * 2);
-        C0010k.m73a(RunnableC0018s.f345a, true);
+        this.f343b = DrawingUtils.m56a(RunnableC0018s.f345a, str, true) + (this.f344c * 2);
+        DrawingUtils.m73a(RunnableC0018s.f345a, true);
     }
 
     /* renamed from: a */
     public final boolean mo58a(int i, int i2) {
         int height = this.f341a.getHeight() - this.f341a.f388b;
-        if (this.f341a.f385a == null || this == RunnableC0018s.f372s) {
+        if (this.f341a.window == null || this == RunnableC0018s.f372s) {
             return false;
         }
         int width = this.f340a == 2 ? this.f341a.getWidth() - this.f343b : 0;

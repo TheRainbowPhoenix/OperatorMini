@@ -31,7 +31,7 @@ public final class C0006g extends List {
                 }
             }
             if (!this.f86a.f272b && this.f86a.f270b > 50) {
-                append(new StringBuffer().append(C0010k.m62a(104)).append("...").toString(), (Image) null);
+                append(new StringBuffer().append(DrawingUtils.m62a(104)).append("...").toString(), (Image) null);
             }
         }
     }

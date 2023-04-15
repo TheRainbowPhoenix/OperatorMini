@@ -24,7 +24,7 @@ import javax.microedition.midlet.MIDlet;
 public final class RunnableC0018s extends Canvas implements CommandListener, Runnable {
 
     /* renamed from: a */
-    public static Font f345a = Font.getFont(64, 1, C0010k.f176d);
+    public static Font f345a = Font.getFont(64, 1, DrawingUtils.font_size);
 
     /* renamed from: a */
     public static C0017r f346a;
@@ -33,7 +33,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public static final int[] f347a = {52, 52, 52, 54, 54, 54, 56, 50};
 
     /* renamed from: b */
-    public static Font f348b = Font.getFont(64, 0, C0010k.f176d);
+    public static Font f348b = Font.getFont(64, 0, DrawingUtils.font_size);
 
     /* renamed from: b */
     public static C0017r f349b;
@@ -42,7 +42,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public static C0017r f350c;
 
     /* renamed from: c */
-    public static int[] f351c;
+    public static int[] skin_colors;
 
     /* renamed from: d */
     public static C0017r f352d;
@@ -135,7 +135,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public Display f381a;
 
     /* renamed from: a */
-    public Image f382a;
+    public Image skin_image;
 
     /* renamed from: a */
     private TextBox f383a = null;
@@ -144,7 +144,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public C0014o f384a = null;
 
     /* renamed from: a */
-    public Window f385a;
+    public Window window;
 
     /* renamed from: a */
     public C0016q f386a = new C0016q();
@@ -285,38 +285,38 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     private C0017r f431u;
 
     public RunnableC0018s(Browser browser) {
-        C0010k.m87a((MIDlet) browser, (Canvas) this);
-        f351c = new int[32];
-        this.f398c = Math.max(10, (int) C0010k.m73a(f345a, true)) + 3;
+        DrawingUtils.m87a((MIDlet) browser, (Canvas) this);
+        skin_colors = new int[32];
+        this.f398c = Math.max(10, (int) DrawingUtils.m73a(f345a, true)) + 3;
         this.f388b = this.f398c;
         if (hasPointerEvents()) {
             this.f388b += 4;
         }
-        C0010k.m124f();
-        this.f382a = C0010k.m70a("/skin.png");
-        if (this.f382a != null) {
-            this.f382a.getRGB(f351c, 0, 32, 0, 21, 32, 1);
+        DrawingUtils.m124f();
+        this.skin_image = DrawingUtils.loadImageResource("/skin.png");
+        if (this.skin_image != null) {
+            this.skin_image.getRGB(skin_colors, 0, 32, 0, 21, 32, 1);
             for (int i = 0; i < 32; i++) {
-                f351c[i] = f351c[i] & 16777215;
+                skin_colors[i] = skin_colors[i] & 16777215;
             }
         }
-        this.f382a = C0010k.m71a(this.f382a, 1, this.f398c);
+        this.skin_image = DrawingUtils.m71a(this.skin_image, 1, this.f398c);
         this.f397b = new int[this.f398c];
-        if (this.f382a != null) {
-            this.f382a.getRGB(this.f397b, 0, 1, 0, 0, 1, this.f398c);
+        if (this.skin_image != null) {
+            this.skin_image.getRGB(this.f397b, 0, 1, 0, 0, 1, this.f398c);
         }
-        Window.SKIN_COLORS = f351c;
+        Window.SKIN_COLORS = skin_colors;
         m218m();
         this.f375a = browser;
         this.f381a = browser.f69a;
-        if (!C0010k.f207v) {
+        if (!DrawingUtils.f207v) {
             setFullScreenMode(true);
         }
         this.f381a.setCurrent(this);
-        if (C0010k.f181e) {
+        if (DrawingUtils.f181e) {
             RunnableC0018s.super.addCommand(f359h);
         }
-        C0010k.f164b = 0;
+        DrawingUtils.f164b = 0;
         this.f426i = getWidth();
         repaint();
         f353e = 0;
@@ -383,7 +383,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         if (i == -8 || i == -11 || i == -16 || i == -19 || i == -204) {
             return -7;
         }
-        if (C0010k.f137A) {
+        if (DrawingUtils.f137A) {
             switch (i) {
                 case 50:
                     return 1;
@@ -429,12 +429,12 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: a */
     public static String m198a(int i) {
-        Calendar a = C0010k.m68a();
+        Calendar a = DrawingUtils.m68a();
         int i2 = a.get(12);
         if (i < 0 || i > 23) {
             i = a.get(11);
         }
-        if (C0010k.f150N) {
+        if (DrawingUtils.f150N) {
             return new StringBuffer().append(i < 10 ? "0" : "").append(i).append(":").append(i2 < 10 ? "0" : "").append(i2).toString();
         }
         boolean z = true;
@@ -451,7 +451,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: a */
     private static TextBox mo60a() {
-        return new TextBox(C0010k.m62a(47), "www.", 512, 4);
+        return new TextBox(DrawingUtils.m62a(47), "www.", 512, 4);
     }
 
     /* JADX WARNING: Removed duplicated region for block: B:21:0x004f  */
@@ -469,7 +469,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: a */
     private void m201a(Graphics graphics, int i, int i2) {
-        if (C0010k.f160a) {
+        if (DrawingUtils.f160a) {
             int[] iArr = new int[(getWidth() * 8)];
             int i3 = i | (i2 << 24);
             int length = iArr.length;
@@ -487,9 +487,9 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     /* renamed from: a */
     private void m202a(Graphics graphics, int i, int i2, int i3, int i4) {
         String a;
-        RunnableC0020u uVar = this.f385a.f311b;
-        if (this.f385a.m188c() && uVar != null) {
-            graphics.setColor(f351c[26]);
+        PageDataRunnable uVar = this.window.f311b;
+        if (this.window.m188c() && uVar != null) {
+            graphics.setColor(skin_colors[26]);
             graphics.drawRect(i, i2, i3 - 1, i4);
             int i5 = i + 1;
             int i6 = i2 + 1;
@@ -498,7 +498,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             int a2 = uVar.m328a();
             int b = uVar.m343b();
             int i9 = a2 != 0 ? (i7 * b) / a2 : 0;
-            int i10 = f351c[27];
+            int i10 = skin_colors[27];
             int i11 = (i10 >> 16) & 255;
             int i12 = 0;
             int i13 = i10 & 255;
@@ -520,22 +520,22 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 i11 = i15;
             }
             int i18 = i7 - i9;
-            C0010k.m82a(graphics, i5 + i9, i6, i7 - i9, i8 + 1, f351c[29], f351c[30]);
+            DrawingUtils.makeGradient(graphics, i5 + i9, i6, i7 - i9, i8 + 1, skin_colors[29], skin_colors[30]);
             if (i18 >= 1) {
-                graphics.setColor(f351c[21]);
+                graphics.setColor(skin_colors[21]);
                 graphics.drawLine(i5 + i9, i6, i5 + i9, (i6 + i8) - 1);
             }
             if (i18 >= 2) {
-                graphics.setColor(f351c[22]);
+                graphics.setColor(skin_colors[22]);
                 graphics.drawLine(i5 + i9 + 1, i6, i5 + i9 + 1, (i6 + i8) - 1);
                 graphics.drawLine(i5 + i9 + 1, i6, i7, i6);
             }
             if (i18 >= 3) {
-                graphics.setColor(f351c[23]);
+                graphics.setColor(skin_colors[23]);
                 graphics.drawLine(i5 + i9 + 2, i6 + 1, i5 + i9 + 2, (i6 + i8) - 1);
                 graphics.drawLine(i5 + i9 + 2, i6 + 1, i7, i6 + 1);
             }
-            graphics.setColor(f351c[28]);
+            graphics.setColor(skin_colors[28]);
             if (this.f377a == null) {
                 this.f377a = new StringBuffer();
             }
@@ -544,21 +544,21 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             if (!f362j) {
                 switch (uVar.f494h) {
                     case 1:
-                        a = C0010k.m62a(21);
-                        if (C0010k.f196k) {
-                            a = C0010k.m62a(23);
+                        a = DrawingUtils.m62a(21);
+                        if (DrawingUtils.f196k) {
+                            a = DrawingUtils.m62a(23);
                             break;
                         }
                         break;
                     case 2:
-                        a = C0010k.m62a(22);
-                        if (C0010k.f196k) {
-                            a = C0010k.m62a(23);
+                        a = DrawingUtils.m62a(22);
+                        if (DrawingUtils.f196k) {
+                            a = DrawingUtils.m62a(23);
                             break;
                         }
                         break;
                     case 3:
-                        a = C0010k.m62a(23);
+                        a = DrawingUtils.m62a(23);
                         break;
                     case 4:
                     default:
@@ -566,17 +566,17 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                         break;
                     case 5:
                     case 6:
-                        a = C0010k.m62a(24);
+                        a = DrawingUtils.m62a(24);
                         c = 2;
                         break;
                 }
             } else {
-                a = C0010k.m62a(107);
+                a = DrawingUtils.m62a(107);
             }
             this.f377a.append(a);
-            int a3 = C0010k.m56a(f348b, this.f377a.toString(), true);
+            int a3 = DrawingUtils.m56a(f348b, this.f377a.toString(), true);
             if (c == 1) {
-                int currentTimeMillis = ((int) ((System.currentTimeMillis() - this.f385a.f301a) / 500)) % 4;
+                int currentTimeMillis = ((int) ((System.currentTimeMillis() - this.window.f301a) / 500)) % 4;
                 for (int i19 = 0; i19 < currentTimeMillis; i19++) {
                     this.f377a.append(".");
                 }
@@ -588,7 +588,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 this.f377a.append(" kB");
             }
             String stringBuffer = this.f377a.toString();
-            int a4 = C0010k.m56a(f348b, stringBuffer, true);
+            int a4 = DrawingUtils.m56a(f348b, stringBuffer, true);
             if (c == 2) {
                 a3 = a4;
             }
@@ -598,42 +598,42 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                     this.f377a.insert(0, "...");
                 }
                 String stringBuffer2 = this.f377a.toString();
-                int a5 = C0010k.m56a(f348b, stringBuffer2, true);
+                int a5 = DrawingUtils.m56a(f348b, stringBuffer2, true);
                 int clipX = graphics.getClipX();
                 int clipY = graphics.getClipY();
                 int clipWidth = graphics.getClipWidth();
                 int clipHeight = graphics.getClipHeight();
                 graphics.setClip(clipX, clipY, Math.min(clipWidth, (i7 - a5) - clipX), clipHeight);
-                C0010k.m84a(graphics, f348b, a, i5, i6 + 1, 20, 0, i9, 16777215, true);
+                DrawingUtils.m84a(graphics, f348b, a, i5, i6 + 1, 20, 0, i9, 16777215, true);
                 graphics.setClip(clipX, clipY, clipWidth, clipHeight);
-                C0010k.m84a(graphics, f348b, stringBuffer2, i7, i6 + 1, 24, 0, i9, 16777215, true);
+                DrawingUtils.m84a(graphics, f348b, stringBuffer2, i7, i6 + 1, 24, 0, i9, 16777215, true);
                 return;
             }
-            C0010k.m84a(graphics, f348b, stringBuffer, ((i7 / 2) + i5) - (a3 / 2), i6 + 1, 20, 0, i9, 16777215, true);
+            DrawingUtils.m84a(graphics, f348b, stringBuffer, ((i7 / 2) + i5) - (a3 / 2), i6 + 1, 20, 0, i9, 16777215, true);
         }
     }
 
     /* renamed from: a */
     private void m203a(Graphics graphics, Window pVar, boolean z) {
         if (!(graphics == null || pVar == null)) {
-            graphics.setColor(f351c[3]);
-            graphics.drawRect(pVar.f333s - 1, pVar.f334t - 3, pVar.f331q + 1, pVar.progress + 4);
-            C0010k.m82a(graphics, pVar.f333s + 2, pVar.f334t - 1, pVar.f331q - 4, pVar.progress + 2, f351c[6], f351c[4]);
-            graphics.setColor(f351c[4]);
-            graphics.drawLine(pVar.f333s, pVar.f334t - 1, pVar.f333s, pVar.f334t + pVar.progress);
-            graphics.drawLine((pVar.f333s + pVar.f331q) - 1, pVar.f334t - 1, (pVar.f333s + pVar.f331q) - 1, pVar.f334t + pVar.progress);
-            graphics.drawLine(pVar.f333s, pVar.f334t + pVar.progress, (pVar.f333s + pVar.f331q) - 1, pVar.f334t + pVar.progress);
-            graphics.drawLine(pVar.f333s, pVar.f334t - 2, (pVar.f333s + pVar.f331q) - 1, pVar.f334t - 2);
-            graphics.setColor(f351c[5]);
-            graphics.drawLine(pVar.f333s + 1, pVar.f334t - 1, pVar.f333s + 1, pVar.f334t + pVar.progress);
-            graphics.drawLine((pVar.f333s + pVar.f331q) - 2, pVar.f334t - 1, (pVar.f333s + pVar.f331q) - 2, pVar.f334t + pVar.progress);
-            if (C0010k.f160a) {
-                int i = pVar.f333s + pVar.f331q + 1;
+            graphics.setColor(skin_colors[3]);
+            graphics.drawRect(pVar.x - 1, pVar.y - 3, pVar.width + 1, pVar.height + 4);
+            DrawingUtils.makeGradient(graphics, pVar.x + 2, pVar.y - 1, pVar.width - 4, pVar.height + 2, skin_colors[6], skin_colors[4]);
+            graphics.setColor(skin_colors[4]);
+            graphics.drawLine(pVar.x, pVar.y - 1, pVar.x, pVar.y + pVar.height);
+            graphics.drawLine((pVar.x + pVar.width) - 1, pVar.y - 1, (pVar.x + pVar.width) - 1, pVar.y + pVar.height);
+            graphics.drawLine(pVar.x, pVar.y + pVar.height, (pVar.x + pVar.width) - 1, pVar.y + pVar.height);
+            graphics.drawLine(pVar.x, pVar.y - 2, (pVar.x + pVar.width) - 1, pVar.y - 2);
+            graphics.setColor(skin_colors[5]);
+            graphics.drawLine(pVar.x + 1, pVar.y - 1, pVar.x + 1, pVar.y + pVar.height);
+            graphics.drawLine((pVar.x + pVar.width) - 2, pVar.y - 1, (pVar.x + pVar.width) - 2, pVar.y + pVar.height);
+            if (DrawingUtils.f160a) {
+                int i = pVar.x + pVar.width + 1;
                 if (this.f407d != null) {
-                    graphics.drawImage(this.f407d, i, pVar.f334t - 3, 0);
+                    graphics.drawImage(this.f407d, i, pVar.y - 3, 0);
                 }
-                int i2 = pVar.f334t + 1;
-                int i3 = pVar.progress + i2 + 1;
+                int i2 = pVar.y + 1;
+                int i3 = pVar.height + i2 + 1;
                 if (this.f412e != null) {
                     while (i2 < i3) {
                         graphics.drawImage(this.f412e, i, i2, 0);
@@ -642,10 +642,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 }
                 if (!(!z || this.f418f == null || this.f422g == null || this.f424h == null)) {
                     graphics.drawImage(this.f418f, i, i3, 0);
-                    for (int i4 = pVar.f333s + 4; i4 < i; i4++) {
+                    for (int i4 = pVar.x + 4; i4 < i; i4++) {
                         graphics.drawImage(this.f422g, i4, i3, 0);
                     }
-                    graphics.drawImage(this.f424h, pVar.f333s, i3, 0);
+                    graphics.drawImage(this.f424h, pVar.x, i3, 0);
                 }
             }
             pVar.paint(graphics);
@@ -654,7 +654,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: a */
     public static void m204a(Screen screen) {
-        if (screen != null && C0010k.f181e) {
+        if (screen != null && DrawingUtils.f181e) {
             screen.addCommand(f359h);
         }
     }
@@ -686,14 +686,14 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: b */
     private void m207b(int i) {
-        int d = this.f385a.pageImageData.m353d(this.f385a.f300a);
-        C0010k.m77a(d, d + i);
+        int d = this.window.pageImageData.m353d(this.window.f300a);
+        DrawingUtils.m77a(d, d + i);
         mo62a(i > 0 ? 6 : 1, 0);
         commandAction(f355f, this);
     }
 
     /* renamed from: b */
-    private void m208b(Graphics graphics) {
+    private void drawFooterNavGradient(Graphics graphics) {
         int height = getHeight() - this.f388b;
         int width = getWidth();
         int i = this.f388b;
@@ -702,7 +702,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         int clipWidth = graphics.getClipWidth();
         int clipHeight = graphics.getClipHeight();
         int i2 = i - this.f398c;
-        graphics.setColor(f351c[26]);
+        graphics.setColor(skin_colors[26]);
         graphics.drawLine(0, height, width - 1, height);
         if (i2 > 0) {
             graphics.setColor(this.f397b[0]);
@@ -715,30 +715,30 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             graphics.setColor(this.f397b[i4]);
             graphics.drawLine(0, height + i4 + i3, width - 1, height + i4 + i3);
         }
-        int i5 = this.f385a.f331q;
-        if (this.f385a.m188c()) {
+        int i5 = this.window.width;
+        if (this.window.m188c()) {
             this.f430t = f372s;
             this.f431u = f354e;
             m202a(graphics, 0, getHeight() - this.f388b, i5 - (this.f431u.f343b + 6), this.f388b);
-        } else if (C0010k.f149M) {
+        } else if (DrawingUtils.f149M) {
             int i6 = this.f430t.f343b;
             int i7 = this.f431u.f343b;
-            int a = C0010k.m56a(f348b, this.f376a, true);
+            int a = DrawingUtils.m56a(f348b, this.f376a, true);
             if (i6 + (a / 2) + 1 < width / 2 && (a / 2) + i7 + 1 < width / 2) {
-                graphics.setColor(f351c[1]);
-                C0010k.m85a(graphics, f348b, this.f376a, width / 2, height + 2, 17, 0, true);
+                graphics.setColor(skin_colors[1]);
+                DrawingUtils.m85a(graphics, f348b, this.f376a, width / 2, height + 2, 17, 0, true);
             }
         }
         if (this.f430t.f342a) {
-            C0010k.m83a(graphics, 0, height, this.f430t.f343b, this.f388b, false);
+            DrawingUtils.drawOnScreenSelection(graphics, 0, height, this.f430t.f343b, this.f388b, false);
         } else if (this.f431u.f342a) {
-            C0010k.m83a(graphics, ((width + 0) - this.f431u.f343b) - 6, height, this.f431u.f343b + 6, this.f388b, false);
+            DrawingUtils.drawOnScreenSelection(graphics, ((width + 0) - this.f431u.f343b) - 6, height, this.f431u.f343b + 6, this.f388b, false);
         }
         graphics.setClip(clipX, clipY, clipWidth, Math.min(((height + i) - 1) - clipY, clipHeight));
-        graphics.setColor(this.f430t.f342a ? f351c[2] : f351c[1]);
-        C0010k.m85a(graphics, f345a, this.f430t.getLabel(), 2, height + 2, 20, 0, true);
-        graphics.setColor(this.f431u.f342a ? f351c[2] : f351c[1]);
-        C0010k.m85a(graphics, f345a, this.f431u.getLabel(), (width + 0) - this.f431u.f343b, height + 2, 20, 0, true);
+        graphics.setColor(this.f430t.f342a ? skin_colors[2] : skin_colors[1]);
+        DrawingUtils.m85a(graphics, f345a, this.f430t.getLabel(), 2, height + 2, 20, 0, true);
+        graphics.setColor(this.f431u.f342a ? skin_colors[2] : skin_colors[1]);
+        DrawingUtils.m85a(graphics, f345a, this.f431u.getLabel(), (width + 0) - this.f431u.f343b, height + 2, 20, 0, true);
         graphics.setClip(clipX, clipY, clipWidth, clipHeight);
     }
 
@@ -760,7 +760,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: b */
     private boolean mo67b() {
-        return this.f409d || this.f429l || this.f385a.m188c() || (this.f385a.pageImageData != null && this.f385a.pageImageData.f498i);
+        return this.f409d || this.f429l || this.window.m188c() || (this.window.pageImageData != null && this.window.pageImageData.f498i);
     }
 
     /* renamed from: c */
@@ -769,10 +769,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         this.f389b = System.currentTimeMillis();
         this.f373a = i;
         this.f387a = true;
-        if (this.f391b == null && !C0010k.f209x) {
+        if (this.f391b == null && !DrawingUtils.f209x) {
             this.f391b = new C0011l(this, 2);
             if (this.f378a != null) {
-                this.f378a.schedule(this.f391b, (long) C0010k.f155a, 50);
+                this.f378a.schedule(this.f391b, (long) DrawingUtils.f155a, 50);
             }
         }
     }
@@ -789,7 +789,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             this.f392b.removeElement(str);
         }
         this.f392b.addElement(str);
-        C0010k.m108b(this.f392b);
+        DrawingUtils.m108b(this.f392b);
     }
 
     /* renamed from: c */
@@ -797,7 +797,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         graphics.setColor(16777215);
         graphics.fillRect(graphics.getClipX(), graphics.getClipY(), graphics.getClipWidth(), graphics.getClipHeight());
         if (this.f427i == null) {
-            this.f427i = C0010k.m70a("/om100.png");
+            this.f427i = DrawingUtils.loadImageResource("/om100.png");
         }
         if (this.f427i != null) {
             graphics.drawImage(this.f427i, getWidth() / 2, getHeight() / 2, 3);
@@ -805,12 +805,12 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         graphics.setColor(0);
         Font font = Font.getFont(64, 0, 8);
         graphics.setFont(font);
-        String a = C0010k.m62a(56);
-        int width = (getWidth() / 2) - (C0010k.m56a(font, a, true) / 2);
+        String a = DrawingUtils.m62a(56);
+        int width = (getWidth() / 2) - (DrawingUtils.m56a(font, a, true) / 2);
         for (int i = 0; i < f353e; i++) {
             a = new StringBuffer().append(a).append(".").toString();
         }
-        graphics.drawString(a, width, (getHeight() - 20) + C0010k.m73a(font, true), 36);
+        graphics.drawString(a, width, (getHeight() - 20) + DrawingUtils.m73a(font, true), 36);
     }
 
     /* renamed from: c */
@@ -832,8 +832,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         int i3 = 0;
         while (i3 < this.f415e.length && this.f415e[i3] == f347a[i3]) {
             if (i3 == this.f415e.length - 1) {
-                C0010k.f139C = !C0010k.f139C;
-                C0010k.f147K = !C0010k.f147K;
+                DrawingUtils.f139C = !DrawingUtils.f139C;
+                DrawingUtils.f147K = !DrawingUtils.f147K;
                 this.f381a.vibrate(500);
             }
             i3++;
@@ -842,44 +842,44 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: d */
     private void m216d(String str) {
-        this.f413e = new Window(this, 200, 55, this.f395b.f331q - 12, (((getHeight() - 80) - 2) - this.f388b) - 14, 8, 8);
+        this.f413e = new Window(this, 200, 55, this.f395b.width - 12, (((getHeight() - 80) - 2) - this.f388b) - 14, 8, 8);
         this.f413e.openUrl(str, false, false, (String) null, (String) null);
     }
 
     /* renamed from: l */
     private void m217l() {
-        this.f392b = C0010k.m105b();
-        if (this.f385a != null) {
-            this.f385a.f302a = C0010k.m69a();
+        this.f392b = DrawingUtils.m105b();
+        if (this.window != null) {
+            this.window.f302a = DrawingUtils.m69a();
         }
     }
 
     /* renamed from: m */
     private void m218m() {
-        int i = C0010k.f170c == 3 ? 2 : 3;
-        switch (C0010k.f170c) {
+        int i = DrawingUtils.f170c == 3 ? 2 : 3;
+        switch (DrawingUtils.f170c) {
             case 2:
                 i = 8;
                 break;
         }
-        f346a = new C0017r(this, C0010k.m62a(31), 1, 1);
-        f349b = new C0017r(this, C0010k.m62a(51), 1, 1);
-        f350c = new C0017r(this, C0010k.m62a(118), 1, 1);
-        f352d = new C0017r(this, C0010k.m62a(1), i, 2);
-        f354e = new C0017r(this, C0010k.m62a(3), 6, 2);
-        f357g = new C0017r(this, C0010k.m62a(6), 8, 2);
-        f370q = new C0017r(this, C0010k.m62a(20), 8, 1);
-        f371r = new C0017r(this, C0010k.m62a(50), 8, 1);
-        f355f = new C0017r(this, C0010k.m62a(5), 2);
-        f359h = new C0017r(this, C0010k.m62a(10), 7, 2);
-        f360i = new C0017r(this, C0010k.m62a(4), 2, 2);
-        f361j = new C0017r(this, C0010k.m62a(11), 4, 1);
-        f363k = new C0017r(this, C0010k.m62a(12), i, 2);
-        f365l = new C0017r(this, C0010k.m62a(91), 1);
-        f366m = new C0017r(this, C0010k.m62a(0), 4, 1);
-        f367n = new C0017r(this, C0010k.m62a(18), 1);
-        f368o = new C0017r(this, C0010k.m62a(104), 2);
-        f369p = new C0017r(this, C0010k.m62a(106), 4, 1);
+        f346a = new C0017r(this, DrawingUtils.m62a(31), 1, 1);
+        f349b = new C0017r(this, DrawingUtils.m62a(51), 1, 1);
+        f350c = new C0017r(this, DrawingUtils.m62a(118), 1, 1);
+        f352d = new C0017r(this, DrawingUtils.m62a(1), i, 2);
+        f354e = new C0017r(this, DrawingUtils.m62a(3), 6, 2);
+        f357g = new C0017r(this, DrawingUtils.m62a(6), 8, 2);
+        f370q = new C0017r(this, DrawingUtils.m62a(20), 8, 1);
+        f371r = new C0017r(this, DrawingUtils.m62a(50), 8, 1);
+        f355f = new C0017r(this, DrawingUtils.m62a(5), 2);
+        f359h = new C0017r(this, DrawingUtils.m62a(10), 7, 2);
+        f360i = new C0017r(this, DrawingUtils.m62a(4), 2, 2);
+        f361j = new C0017r(this, DrawingUtils.m62a(11), 4, 1);
+        f363k = new C0017r(this, DrawingUtils.m62a(12), i, 2);
+        f365l = new C0017r(this, DrawingUtils.m62a(91), 1);
+        f366m = new C0017r(this, DrawingUtils.m62a(0), 4, 1);
+        f367n = new C0017r(this, DrawingUtils.m62a(18), 1);
+        f368o = new C0017r(this, DrawingUtils.m62a(104), 2);
+        f369p = new C0017r(this, DrawingUtils.m62a(106), 4, 1);
         if (f372s == null) {
             f372s = new C0017r(this, "", 2, 2);
         }
@@ -891,10 +891,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: n */
     private void m219n() {
-        if (C0010k.f203r) {
+        if (DrawingUtils.f203r) {
             setFullScreenMode(false);
         }
-        List list = new List(C0010k.m62a(6), 3);
+        List list = new List(DrawingUtils.m62a(6), 3);
         if (this.f392b != null) {
             for (int size = this.f392b.size() - 1; size >= 0; size--) {
                 list.append((String) this.f392b.elementAt(size), (Image) null);
@@ -912,8 +912,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         this.f429l = false;
         this.f408d = null;
         this.f413e = null;
-        if (this.f385a != null) {
-            this.f385a.f312b = true;
+        if (this.window != null) {
+            this.window.f312b = true;
         }
         mo74f();
         repaint();
@@ -922,35 +922,35 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     /* renamed from: p */
     private void m221p() {
         this.f413e = null;
-        this.f385a.f312b = true;
+        this.window.f312b = true;
         repaint();
     }
 
     /* renamed from: q */
     private void m222q() {
-        if (this.f385a != null) {
-            if (this.f385a.f302a != null) {
-                this.f385a.f302a.removeAllElements();
+        if (this.window != null) {
+            if (this.window.f302a != null) {
+                this.window.f302a.removeAllElements();
             }
-            if (this.f385a.f310b != null) {
-                this.f385a.f310b.removeAllElements();
+            if (this.window.f310b != null) {
+                this.window.f310b.removeAllElements();
             }
-            this.f385a.f313c = -1;
-            this.f385a.f316d = -1;
+            this.window.f313c = -1;
+            this.window.f316d = -1;
             mo79k();
         }
         if (this.f392b != null) {
             this.f392b.removeAllElements();
         }
-        C0010k.m119d("eurls");
-        C0010k.m119d("h");
-        C0010k.f154R = true;
+        DrawingUtils.m119d("eurls");
+        DrawingUtils.m119d("h");
+        DrawingUtils.f154R = true;
     }
 
     /* renamed from: r */
     private void m223r() {
         Image a;
-        if (C0010k.f160a && (a = C0010k.m70a("/sh.png")) != null) {
+        if (DrawingUtils.f160a && (a = DrawingUtils.loadImageResource("/sh.png")) != null) {
             this.f407d = Image.createImage(a, 0, 0, 4, 4, 0);
             this.f424h = Image.createImage(a, 4, 0, 4, 4, 0);
             this.f418f = Image.createImage(a, 8, 0, 4, 4, 0);
@@ -972,7 +972,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     }
 
     /* renamed from: a */
-    public final RunnableC0020u mo59a(String str, String str2) {
+    public final PageDataRunnable mo59a(String str, String str2) {
         String str3 = str == null ? "" : str;
         if (str2 == null) {
             str2 = "";
@@ -983,10 +983,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         if (indexOf2 != -1) {
             str2 = str2.substring(0, indexOf2);
         }
-        RunnableC0020u uVar = null;
+        PageDataRunnable uVar = null;
         int i = 0;
         while (i < this.f380a.size()) {
-            RunnableC0020u uVar2 = (RunnableC0020u) this.f380a.elementAt(i);
+            PageDataRunnable uVar2 = (PageDataRunnable) this.f380a.elementAt(i);
             String a = uVar2.mo95a(false);
             String b = uVar2.m345b();
             if (substring.equals(a)) {
@@ -1004,11 +1004,11 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     /* renamed from: a */
     public final void m226a() {
         this.f376a = m198a(-1);
-        if (this.f385a != null && this.f385a.pageImageData != null) {
-            RunnableC0020u uVar = this.f385a.pageImageData;
+        if (this.window != null && this.window.pageImageData != null) {
+            PageDataRunnable uVar = this.window.pageImageData;
             if (uVar.m333a().equals("opera:settings")) {
                 uVar.m352c();
-                if (!C0010k.f143G) {
+                if (!DrawingUtils.f143G) {
                     repaint();
                 }
             }
@@ -1019,33 +1019,33 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public final void m227a(int i) {
         switch (i) {
             case 0:
-                if (this.f385a != null) {
+                if (this.window != null) {
                     m232a();
-                    C0010k.f159a = null;
+                    DrawingUtils.f159a = null;
                     break;
                 }
                 break;
             case 1:
-                if (!(this.f385a == null || this.f385a.pageImageData == null || this.f385a.pageImageData.f458a == null)) {
-                    this.f385a.pageImageData.f458a = null;
+                if (!(this.window == null || this.window.pageImageData == null || this.window.pageImageData.f458a == null)) {
+                    this.window.pageImageData.f458a = null;
                 }
-                if (this.f385a != null) {
+                if (this.window != null) {
                     mo79k();
-                    C0010k.f159a = null;
+                    DrawingUtils.f159a = null;
                     break;
                 }
                 break;
             case 2:
-                if (this.f385a != null) {
-                    this.f385a.pageImageData = null;
+                if (this.window != null) {
+                    this.window.pageImageData = null;
                     mo79k();
-                    C0010k.f159a = null;
+                    DrawingUtils.f159a = null;
                     break;
                 }
                 break;
             case 3:
-                if (C0010k.f148L) {
-                    C0010k.f148L = false;
+                if (DrawingUtils.f148L) {
+                    DrawingUtils.f148L = false;
                     mo79k();
                     break;
                 }
@@ -1056,7 +1056,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: a */
     public final void mo62a(int i, int i2) {
-        if (!C0010k.f137A && i == 35 && !this.f428i) {
+        if (!DrawingUtils.f137A && i == 35 && !this.f428i) {
             this.f428i = true;
         } else if (this.f419f != null) {
             mo75g();
@@ -1099,8 +1099,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 this.f413e.m175a(i, i2);
             } else if (this.f429l && this.f395b != null) {
                 this.f395b.m175a(i, i2);
-            } else if (this.f385a != null) {
-                this.f385a.m175a(i, i2);
+            } else if (this.window != null) {
+                this.window.m175a(i, i2);
             }
         }
     }
@@ -1109,7 +1109,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public final void mo63a(int i, int i2, int i3, int i4) {
         int max = Math.max(i, 0);
         int max2 = Math.max(i2, 0);
-        if (i2 + i4 == C0010k.f182f) {
+        if (i2 + i4 == DrawingUtils.f182f) {
             i4++;
         }
         repaint(max, max2, (i + i3) - max, (i2 + i4) - max2);
@@ -1141,24 +1141,24 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             } else if (str4.equals("opera:back")) {
                 commandAction(f360i, this);
             } else if (str4.equals("opera:forward")) {
-                this.f385a.mo53e();
+                this.window.mo53e();
             } else if (str4.equals("opera:bookmark-up")) {
                 m207b(-1);
             } else if (str4.equals("opera:bookmark-down")) {
                 m207b(1);
             } else if (str4.equals("opera:bookmark-delete")) {
-                this.f405d = this.f385a.pageImageData.m353d(this.f385a.f300a);
+                this.f405d = this.window.pageImageData.m353d(this.window.f300a);
                 if (this.f405d != -1) {
-                    this.f385a.openUrl("opera:deletebookmarkdialog", false, false, str2, str3);
+                    this.window.openUrl("opera:deletebookmarkdialog", false, false, str2, str3);
                 }
             } else if (str4.equals("opera:reload")) {
                 commandAction(f355f, this);
             } else if (str4.equals("opera:top")) {
-                this.f385a.mo55g();
+                this.window.mo55g();
             } else if (str4.equals("opera:bottom")) {
-                this.f385a.mo56h();
+                this.window.mo56h();
             } else {
-                this.f385a.openUrl(str4, false, true, str2, str3);
+                this.window.openUrl(str4, false, true, str2, str3);
             }
         }
     }
@@ -1168,18 +1168,18 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         if (this.f380a == null || this.f380a.isEmpty()) {
             return false;
         }
-        RunnableC0020u uVar = (RunnableC0020u) this.f380a.firstElement();
+        PageDataRunnable uVar = (PageDataRunnable) this.f380a.firstElement();
         uVar.m355d();
         return this.f380a.removeElement(uVar);
     }
 
     /* renamed from: a */
-    public final boolean mo66a(RunnableC0020u uVar) {
+    public final boolean mo66a(PageDataRunnable uVar) {
         if (uVar == null || uVar.f453a == null || !uVar.f510o) {
             return false;
         }
         try {
-            RunnableC0020u a = mo59a(uVar.mo95a(false), uVar.m345b());
+            PageDataRunnable a = mo59a(uVar.mo95a(false), uVar.m345b());
             if (a != null) {
                 this.f380a.removeElement(a);
             }
@@ -1197,7 +1197,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
         switch (this.f416f) {
             case 0:
                 this.f420f = true;
-                if (!(this.f385a == null || this.f385a.pageImageData == null || !this.f385a.pageImageData.m349b())) {
+                if (!(this.window == null || this.window.pageImageData == null || !this.window.pageImageData.m349b())) {
                     this.f416f++;
                 }
             case 1:
@@ -1212,15 +1212,15 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 break;
         }
         this.f416f++;
-        if (this.f385a != null) {
-            this.f385a.f317d = false;
+        if (this.window != null) {
+            this.window.f317d = false;
         }
         repaint();
     }
 
     /* renamed from: b */
     public final void mo68b(String str) {
-        Alert alert = new Alert(C0010k.m62a(42), str, (Image) null, AlertType.INFO);
+        Alert alert = new Alert(DrawingUtils.m62a(42), str, (Image) null, AlertType.INFO);
         alert.setTimeout(-2);
         this.f381a.setCurrent(alert, this);
     }
@@ -1260,7 +1260,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             this.f423g = false;
             return;
         }
-        RunnableC0020u uVar = this.f385a != null ? this.f385a.pageImageData : null;
+        PageDataRunnable uVar = this.window != null ? this.window.pageImageData : null;
         if (command == f346a || command == f350c) {
             if (this.f429l) {
                 commandAction(f352d, displayable);
@@ -1278,36 +1278,36 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             } else if (this.f395b != null) {
                 this.f395b.m175a(8, 0);
             }
-        } else if (command == f367n && this.f385a != null && uVar != null) {
-            this.f385a.f306a = true;
-            this.f385a.openUrl(uVar.m333a(), false, false, (String) null, RunnableC0020u.m251a(uVar.f459a, (C0014o) null));
+        } else if (command == f367n && this.window != null && uVar != null) {
+            this.window.f306a = true;
+            this.window.openUrl(uVar.m333a(), false, false, (String) null, PageDataRunnable.m251a(uVar.f459a, (C0014o) null));
         } else if (command == f361j) {
-            if (!(uVar == null || this.f385a == null)) {
+            if (!(uVar == null || this.window == null)) {
                 if (uVar.f506m) {
                     m222q();
                     mo64a("opera:start");
                 } else if (uVar.f508n) {
-                    C0010k.m76a(this.f405d);
+                    DrawingUtils.m76a(this.f405d);
                     mo64a("opera:bookmarks");
                 } else if (uVar.f502k) {
-                    if (this.f385a != null) {
-                        this.f385a.m189d();
+                    if (this.window != null) {
+                        this.window.m189d();
                     }
                     new Thread(new C0011l(this, 7)).start();
                 } else if (uVar.f504l) {
-                    if (this.f385a != null) {
-                        this.f385a.m189d();
+                    if (this.window != null) {
+                        this.window.m189d();
                     }
                     new RunnableC0003d(this, this.f411e, this.f417f, true).mo19a();
                 }
             }
-        } else if (command != f363k || this.f385a == null) {
-            if (command == f365l && this.f385a != null && uVar != null) {
-                C0014o a = this.f385a.m172a(this.f385a.f300a);
+        } else if (command != f363k || this.window == null) {
+            if (command == f365l && this.window != null && uVar != null) {
+                C0014o a = this.window.m172a(this.window.f300a);
                 if (a != null) {
                     String str = a.f278d;
-                    String a2 = RunnableC0020u.m251a(uVar.f459a, a);
-                    Window pVar = this.f385a;
+                    String a2 = PageDataRunnable.m251a(uVar.f459a, a);
+                    Window pVar = this.window;
                     if (str == null) {
                         str = uVar.f443a;
                     }
@@ -1315,13 +1315,13 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 } else {
                     return;
                 }
-            } else if (command == f354e && this.f385a != null) {
-                this.f385a.m173a();
+            } else if (command == f354e && this.window != null) {
+                this.window.m173a();
                 mo72d();
                 mo70c();
             } else if (command == f360i || (command == f352d && (displayable instanceof TextBox))) {
                 if ((displayable instanceof TextBox) || (displayable instanceof C0006g)) {
-                    if (C0010k.f203r) {
+                    if (DrawingUtils.f203r) {
                         setFullScreenMode(true);
                     }
                     if (this.f381a != null) {
@@ -1329,26 +1329,26 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                     }
                 } else if ((displayable instanceof List) && this.f381a != null) {
                     this.f381a.setCurrent(this.f383a);
-                } else if (this.f385a != null) {
-                    this.f385a.m189d();
+                } else if (this.window != null) {
+                    this.window.m189d();
                 }
             } else if (command == f359h && this.f375a != null) {
                 this.f375a.destroyApp(false);
                 this.f375a.notifyDestroyed();
                 return;
-            } else if (command == f355f && this.f385a != null) {
-                this.f385a.m182b();
+            } else if (command == f355f && this.window != null) {
+                this.window.m182b();
             } else if (command == f366m || command == List.SELECT_COMMAND || command == f368o || command == f369p) {
-                if ((displayable instanceof C0008i) && this.f385a != null) {
+                if ((displayable instanceof C0008i) && this.window != null) {
                     C0008i iVar = (C0008i) displayable;
                     if (iVar != null && iVar.f92a != null) {
                         iVar.f92a.f271b = iVar.getString();
                         iVar.f92a.f275c = null;
                         if (iVar.f92a.f278d != null && iVar.f92a.f278d.equals("search:///")) {
                             this.f394b = iVar.f92a;
-                            this.f385a.openUrl("search:///", false, true, (String) null, new StringBuffer().append(RunnableC0020u.m251a(new C0014o[]{this.f394b}, (C0014o) null)).append("&source=").append(C0010k.f183f).toString());
+                            this.window.openUrl("search:///", false, true, (String) null, new StringBuffer().append(PageDataRunnable.m251a(new C0014o[]{this.f394b}, (C0014o) null)).append("&source=").append(DrawingUtils.google_string).toString());
                         }
-                        if (C0010k.f204s) {
+                        if (DrawingUtils.f204s) {
                             Alert alert = new Alert("Opera Mini", "Processing", (Image) null, AlertType.INFO);
                             alert.setTimeout(100);
                             this.f381a.setCurrent(alert, this);
@@ -1357,7 +1357,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                             this.f378a.schedule(lVar, 50);
                             return;
                         }
-                        this.f385a.mo44a(iVar.f92a);
+                        this.window.mo44a(iVar.f92a);
                         sVar = this;
                     } else {
                         return;
@@ -1380,8 +1380,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                         oVar.mo36a(this, 0);
                         return;
                     }
-                    if (!(this.f385a == null || gVar == null)) {
-                        this.f385a.mo44a(gVar.f86a);
+                    if (!(this.window == null || gVar == null)) {
+                        this.window.mo44a(gVar.f86a);
                     }
                     sVar = this;
                 } else if (displayable instanceof List) {
@@ -1407,7 +1407,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                             }
                             mo64a(new StringBuffer().append("0/").append(string).toString());
                         }
-                        if (C0010k.f204s) {
+                        if (DrawingUtils.f204s) {
                             Alert alert2 = new Alert("Opera Mini", "Processing", (Image) null, AlertType.INFO);
                             alert2.setTimeout(50);
                             this.f381a.setCurrent(alert2, this);
@@ -1418,24 +1418,24 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                         return;
                     }
                 } else {
-                    if (!(this.f385a == null || uVar == null || !uVar.f498i)) {
-                        this.f385a.m189d();
+                    if (!(this.window == null || uVar == null || !uVar.f498i)) {
+                        this.window.m189d();
                     }
                     sVar = this;
                 }
-                if (C0010k.f203r) {
+                if (DrawingUtils.f203r) {
                     setFullScreenMode(true);
                 }
                 if (this.f381a != null) {
                     this.f381a.setCurrent(sVar);
                 }
             } else if (command == f352d) {
-                if (uVar != null && this.f385a != null && uVar.f498i && !this.f429l) {
-                    this.f385a.m189d();
+                if (uVar != null && this.window != null && uVar.f498i && !this.f429l) {
+                    this.window.m189d();
                 } else if (this.f429l) {
                     m220o();
                 } else {
-                    if (C0010k.f203r) {
+                    if (DrawingUtils.f203r) {
                         setFullScreenMode(true);
                     }
                     if (this.f381a != null) {
@@ -1448,13 +1448,13 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 if (!(this.f383a == null || this.f381a == null || this.f381a.getCurrent() != this.f383a)) {
                     this.f383a.setString("www.");
                 }
-            } else if (command == f371r && this.f385a != null) {
-                this.f385a.openUrl("opera:clearhistorydialog", false, false, (String) null, (String) null);
+            } else if (command == f371r && this.window != null) {
+                this.window.openUrl("opera:clearhistorydialog", false, false, (String) null, (String) null);
             }
-        } else if (this.f385a != null && this.f385a.pageImageData != null && this.f385a.pageImageData.f506m) {
+        } else if (this.window != null && this.window.pageImageData != null && this.window.pageImageData.f506m) {
             mo64a("opera:history");
-        } else if (this.f385a == null || this.f385a.pageImageData == null || !this.f385a.pageImageData.f508n) {
-            this.f385a.m189d();
+        } else if (this.window == null || this.window.pageImageData == null || !this.window.pageImageData.f508n) {
+            this.window.m189d();
         } else {
             mo64a("opera:bookmarks");
         }
@@ -1468,10 +1468,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     /* renamed from: e */
     public final void mo73e() {
-        if (C0010k.f203r) {
+        if (DrawingUtils.f203r) {
             setFullScreenMode(false);
         }
-        if (C0010k.f202q) {
+        if (DrawingUtils.f202q) {
             this.f383a = mo60a();
         } else {
             this.f383a.removeCommand(f366m);
@@ -1496,8 +1496,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     public final void mo74f() {
         boolean z;
         boolean z2;
-        Window pVar = this.f385a;
-        RunnableC0020u uVar = null;
+        Window pVar = this.window;
+        PageDataRunnable uVar = null;
         if (pVar != null) {
             uVar = pVar.pageImageData;
             z2 = pVar.m188c();
@@ -1537,7 +1537,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     /* renamed from: g */
     public final void mo75g() {
         this.f419f = null;
-        this.f385a.f312b = true;
+        this.window.f312b = true;
         repaint();
     }
 
@@ -1572,10 +1572,10 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     }
 
     public final void keyPressed(int i) {
-        f364k = i == -8 && C0010k.f170c == 3;
+        f364k = i == -8 && DrawingUtils.f170c == 3;
         int a = mo61a(i);
         mo76h();
-        if (!C0010k.f210y || m206a(a)) {
+        if (!DrawingUtils.f210y || m206a(a)) {
             m215d(a);
             mo62a(a, 0);
             this.f374a = System.currentTimeMillis();
@@ -1587,7 +1587,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
 
     public final void keyReleased(int i) {
         int a = mo61a(i);
-        if (C0010k.f210y && !m206a(a)) {
+        if (DrawingUtils.f210y && !m206a(a)) {
             m215d(a);
             mo62a(a, 0);
         } else if (a == this.f373a) {
@@ -1597,7 +1597,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     }
 
     public final void keyRepeated(int i) {
-        if (C0010k.f209x) {
+        if (DrawingUtils.f209x) {
             int a = mo61a(i);
             if (m206a(a)) {
                 mo62a(a, (int) (System.currentTimeMillis() - this.f389b));
@@ -1606,9 +1606,9 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     }
 
     public final void paint(Graphics graphics) {
-        if (C0010k.f207v) {
+        if (DrawingUtils.f207v) {
             setFullScreenMode(true);
-            C0010k.f207v = false;
+            DrawingUtils.f207v = false;
         }
         this.f404c = true;
         try {
@@ -1621,28 +1621,28 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 m209b(false);
                 m223r();
             }
-            if (this.f385a != null) {
-                this.f385a.f334t = 0;
+            if (this.window != null) {
+                this.window.y = 0;
                 if (this.f414e) {
-                    this.f385a.f334t = this.f398c;
+                    this.window.y = this.f398c;
                     if (graphics.getClipY() < this.f398c) {
-                        this.f385a.f317d = false;
+                        this.window.f317d = false;
                         m200a(graphics);
                     }
                 }
-                int height = getHeight() - this.f385a.f334t;
+                int height = getHeight() - this.window.y;
                 if (mo67b()) {
                     height -= this.f388b;
                     if (graphics.getClipY() + graphics.getClipHeight() > getHeight() - this.f388b) {
-                        m208b(graphics);
+                        drawFooterNavGradient(graphics);
                     }
                 }
-                this.f385a.m174a(height);
+                this.window.m174a(height);
             }
-            if (this.f385a != null) {
-                this.f385a.paint(graphics);
+            if (this.window != null) {
+                this.window.paint(graphics);
             }
-            if (this.f414e && graphics.getClipY() < this.f398c + 4 && C0010k.f160a) {
+            if (this.f414e && graphics.getClipY() < this.f398c + 4 && DrawingUtils.f160a) {
                 if (this.f393b == null) {
                     int width = getWidth();
                     int[] iArr = new int[(width * 4)];
@@ -1656,7 +1656,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 }
                 graphics.drawImage(this.f393b, 0, this.f398c, 20);
             }
-            if (mo67b() && graphics.getClipY() + graphics.getClipHeight() > (getHeight() - this.f388b) - 1 && C0010k.f160a) {
+            if (mo67b() && graphics.getClipY() + graphics.getClipHeight() > (getHeight() - this.f388b) - 1 && DrawingUtils.f160a) {
                 if (this.f402c == null) {
                     int width2 = getWidth();
                     int[] iArr2 = new int[width2];
@@ -1695,8 +1695,8 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             if (f356g == 2) {
                 this.f395b.mo52d(i, i2);
             }
-        } else if (this.f385a != null && f356g == 1) {
-            this.f385a.mo52d(i, i2);
+        } else if (this.window != null && f356g == 1) {
+            this.window.mo52d(i, i2);
         }
         if (f356g == 4) {
             this.f430t.f342a = this.f430t.mo58a(i, i2);
@@ -1725,9 +1725,9 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             } else if (a2) {
                 f356g = 5;
                 this.f431u.f342a = true;
-            } else if (this.f385a != null) {
+            } else if (this.window != null) {
                 f356g = 1;
-                this.f385a.m184b(i, i2);
+                this.window.m184b(i, i2);
             } else {
                 f356g = 0;
             }
@@ -1735,7 +1735,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             f356g = 2;
             this.f395b.m184b(i, i2);
         }
-        if (!C0010k.f143G) {
+        if (!DrawingUtils.f143G) {
             repaint();
         }
     }
@@ -1766,14 +1766,14 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
                 if (f356g == 5) {
                     mo62a(-7, 0);
                 }
-            } else if (f356g == 1 && this.f385a != null) {
-                this.f385a.mo50c(i, i2);
+            } else if (f356g == 1 && this.window != null) {
+                this.window.mo50c(i, i2);
             }
         }
         this.f430t.f342a = false;
         this.f431u.f342a = false;
         f356g = 0;
-        if (!C0010k.f143G) {
+        if (!DrawingUtils.f143G) {
             repaint();
         }
     }
@@ -1783,41 +1783,41 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             switch (f353e) {
                 case 0:
                     m234b();
-                    this.f385a = new Window(this, getWidth(), getHeight(), 0, this.f398c, 4, 4);
+                    this.window = new Window(this, getWidth(), getHeight(), 0, this.f398c, 4, 4);
                     m217l();
                     f353e++;
                     break;
                 case 1:
-                    C0010k.m121e();
-                    C0014o.f260a = Font.getFont(64, 0, C0010k.f176d);
+                    DrawingUtils.m121e();
+                    C0014o.f260a = Font.getFont(64, 0, DrawingUtils.font_size);
                     setCommandListener(this);
                     this.f378a = new Timer();
-                    m205a(C0010k.f149M);
+                    m205a(DrawingUtils.f149M);
                     mo64a("opera:start");
                     f353e++;
                     break;
                 case 2:
-                    if (!C0010k.f151O) {
+                    if (!DrawingUtils.f151O) {
                         mo64a("opera:firsttime");
                     }
                     f353e++;
                     break;
                 case 3:
-                    C0010k.m75a();
+                    DrawingUtils.m75a();
                     f353e++;
                     break;
                 case 4:
                     mo74f();
                     this.f425h = true;
                     repaint();
-                    if (C0010k.f184f) {
+                    if (DrawingUtils.f184f) {
                         long freeMemory = Runtime.getRuntime().freeMemory();
-                        if (C0010k.f156a > freeMemory) {
-                            C0010k.f156a = freeMemory + ((C0010k.f156a - freeMemory) / 2);
+                        if (DrawingUtils.f156a > freeMemory) {
+                            DrawingUtils.f156a = freeMemory + ((DrawingUtils.f156a - freeMemory) / 2);
                         }
                     }
                     f353e++;
-                    C0010k.m106b();
+                    DrawingUtils.m106b();
                     break;
                 case 5:
                     f353e++;
@@ -1825,7 +1825,7 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
             }
             repaint();
             if (f353e >= 0 && f353e <= 4) {
-                if (C0010k.f199n) {
+                if (DrawingUtils.f199n) {
                     run();
                 } else {
                     this.f381a.callSerially(this);
@@ -1836,20 +1836,20 @@ public final class RunnableC0018s extends Canvas implements CommandListener, Run
     }
 
     public final void showNotify() {
-        if (this.f385a != null) {
-            this.f385a.f312b = true;
+        if (this.window != null) {
+            this.window.f312b = true;
         }
         repaint();
     }
 
     public final void sizeChanged(int i, int i2) {
         if (this.f425h) {
-            this.f385a.f331q = i;
+            this.window.width = i;
         }
         m224s();
-        if (!(this.f426i == i || this.f385a == null)) {
+        if (!(this.f426i == i || this.window == null)) {
             this.f426i = i;
-            this.f385a.m182b();
+            this.window.m182b();
         }
         repaint();
     }

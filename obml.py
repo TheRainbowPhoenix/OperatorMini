@@ -94,6 +94,18 @@ class Parser():
             # earlier absolute coordinates (which are only used for sizes)
             pass
         return self.debug("-> coords[%s]" % ("rel" if rel_to_abs else "abs"), (x, y))
+        
+    def readInt(self):
+        return self.read_medium()
+    
+    def readUnsignedShort(self):
+        return self.read_short()
+
+    def readUnsignedByte(self):
+        return self.read_byte()
+        
+    def readUTF(self):
+        return self.read_string()
 
 def make_string(text):
     payload = text.encode('utf-8')
@@ -151,3 +163,61 @@ if d['url'][0] == "\0":
 print(d["title"])
 print(d["url"])
 print()
+
+
+with open("sample_obml/ya.obml", "rb") as f:
+    raw = f.read()
+    
+print(len(raw))
+
+f = Parser(io.BytesIO(raw))
+
+# file_size = f.read_medium()
+# version = f.read_byte()
+
+if True: # not_working, in my test OBML the 4 bytes are the size
+    first_byte = 0  # f.readUnsignedByte()  # server add it first 
+
+    buff_size = f.readInt()
+    f228d = f.readUnsignedShort()
+    f.readUnsignedShort()
+    f230f = f.readUnsignedShort()
+    f231g = f.readUnsignedShort()
+    print("f230f :", f230f)
+    print("f231g :", f231g)
+    f.readUnsignedShort()
+    f.readInt()
+    f233i = f.readUnsignedShort()
+    f235k = f.readUnsignedShort()
+    f229e = f.readUnsignedShort()
+    f.readUnsignedShort()
+    f234j = f.readUnsignedShort()
+    if (first_byte > 4) :
+        f232h = f.readUnsignedShort()
+
+    if (first_byte > 5) :
+        f216a = f.readByte()
+
+    if (first_byte > 12) :
+        f236l = f.readUnsignedShort()
+    else:
+        f236l = 65535
+
+    if (first_byte > 19) :
+        f.readUnsignedShort()
+
+    f220a = f.readUTF()
+
+    print("ok")
+
+rub = f.readByte();
+
+
+# assert f.read_byte() == 0
+# ri = f.read_medium()
+
+
+# for i in range(ri):
+    # oarr = [0] * 5
+    # oarr[0] = f.read_string()
+    # oarr[1] = f.read_string()

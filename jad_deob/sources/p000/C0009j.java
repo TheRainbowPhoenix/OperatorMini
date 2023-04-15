@@ -140,7 +140,7 @@ public final class C0009j {
     public C0009j() {
         if (f93a == null) {
             try {
-                DataInputStream dataInputStream = new DataInputStream(C0010k.m61a("/t"));
+                DataInputStream dataInputStream = new DataInputStream(DrawingUtils.loadResourceByName("/t"));
                 dataInputStream.skip(900);
                 f93a = new short[768];
                 f95b = new short[256];
