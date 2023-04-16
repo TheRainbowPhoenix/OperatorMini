@@ -152,9 +152,9 @@ function drawLine(ctx, color, x1, y1, x2, y2) {
 
 function drawProgressBar(ctx, thus) {
   if (
-    thus.pageImageData != null &&
-    thus.pageImageData.width > thus.height &&
-    thus.pageImageData.width > 0
+    thus.document != null &&
+    thus.document.width > thus.height &&
+    thus.document.width > 0
   ) {
     thus.isVisible = true;
     var oldColor = ctx.strokeStyle;
@@ -165,15 +165,14 @@ function drawProgressBar(ctx, thus) {
     var barTop = Math.max(oldClipY, thus.y);
     var barHeight = barLength - 2;
     var barWidth =
-      (((1024 * barLength) / thus.pageImageData.width) * barHeight) / 1024 + 3;
+      (((1024 * barLength) / thus.document.width) * barHeight) / 1024 + 3;
     var barOffset;
 
-    if (Math.abs(thus.offset) + thus.height >= thus.pageImageData.width) {
+    if (Math.abs(thus.offset) + thus.height >= thus.document.width) {
       barOffset = barHeight - barWidth + 1;
     } else {
       barOffset = Math.min(
-        (((1024 * Math.abs(thus.offset)) / thus.pageImageData.width) *
-          barLength) /
+        (((1024 * Math.abs(thus.offset)) / thus.document.width) * barLength) /
           1024,
         barHeight - barWidth + 1
       );
@@ -406,13 +405,42 @@ function paint(ctx) {
   let g = new Graphics(ctx);
   let w = new WindowApp();
   let s = new SearchUI();
+  let d = new ODocument();
 
-  s.window.pageImageData.f498i = true; // debug test
+  s.window.document.f498i = true; // debug test
   skin_colors = SKIN_COLORS;
 
-  draw_splash(g);
+  // draw_splash(g);
 
-  // s.paint(g);
+  let rms = d.about_dialog();
+  console.log(rms);
+  rms.data_is.seek(0x29); // TODO: find out how to read header
+  // TODO: hackyy
+  d.flush_bytecode();
+  w.document = d;
+  // rms.parse();
+  // d.render_rms(rms, false); // TODO: true ?
+  // graphics, f460a_index, x, y, ??, ??
+  w.process_doc_bytecode(g, 0, 5, 5, false, false);
+  /*
+    process_doc_bytecode(Graphics graphics, int i, int i2, int i3, boolean z, boolean z2)
+      m149a(16777215, graphics, i2, i3, i);
+
+
+      private void m149a(int i, Graphics graphics, int i2, int i3, int i4) {
+        int i5 = this.width;
+        if (this.isVisible) {
+            i5 -= 6;
+        }
+        int min = Math.min((int) this.document.f460a[i4], (graphics.getClipY() + graphics.getClipHeight()) - i3);
+        this.f335u = i;
+        graphics.setColor(i);
+        graphics.fillRect(i2, i3, i5, min);
+      }
+
+  */
+
+  s.paint(g);
 
   // w.paint(g);
 }

@@ -27,3 +27,6 @@ opera:alert
 http://80.232.117.10:80/
 
 search:///
+
+
+ALIVE => http://server4.operamini.com:80/ || :1080 (403)

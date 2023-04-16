@@ -8,16 +8,102 @@ class BytesDataView extends DataView {
     super(buffer, byteOffset, byteLength);
   }
 
+  get_buffer() {
+    return this.buffer;
+  }
+
+  seek(index) {
+    let old = this.byteOffset;
+    this.byteOffset = index;
+    return old;
+  }
+
+  readUnsignedByte() {
+    const value = super.getUint8(this.byteOffset);
+    this.byteOffset += 1;
+    return value;
+  }
+
+  readByte() {
+    const value = super.getUint8(this.byteOffset);
+    this.byteOffset += 1;
+    return value;
+  }
+
+  readInt() {
+    const value = super.getUint32(this.byteOffset, this.endianess);
+    this.byteOffset += 4;
+    return value;
+  }
+
+  readUnsignedShort() {
+    const value = super.getUint16(this.byteOffset, this.endianess);
+    this.byteOffset += 2;
+    return value;
+  }
+
   readInt8() {
     const value = super.getInt8(this.byteOffset);
     this.byteOffset += 1;
     return value;
   }
 
+  write(value) {
+    super.setUint8(this.byteOffset, value);
+    this.byteOffset += 1;
+  }
+
   readInt16() {
     const value = super.getInt16(this.byteOffset, this.endianess);
     this.byteOffset += 2;
     return value;
+  }
+
+  writeByte(value) {
+    super.setUint8(this.byteOffset, value);
+    this.byteOffset += 1;
+  }
+
+  writeShort(value) {
+    super.setUint16(this.byteOffset, value, this.endianess);
+    this.byteOffset += 2;
+  }
+
+  writeInt(value) {
+    super.setUint32(this.byteOffset, value, this.endianess);
+    this.byteOffset += 4;
+  }
+
+  writeLong(value) {
+    super.setBigUint64(this.byteOffset, value, this.endianess);
+    this.byteOffset += 8;
+  }
+
+  writeFloat(value) {
+    super.setFloat32(this.byteOffset, value, this.endianess);
+    this.byteOffset += 4;
+  }
+
+  writeDouble(value) {
+    super.setFloat64(this.byteOffset, value, this.endianess);
+    this.byteOffset += 8;
+  }
+
+  /** @param {String} text */
+  writeUTF(text) {
+    this.writeShort(text.length);
+
+    const utf8encoder = new TextEncoder();
+    /** @type {Uint8Array} */
+    const utf8Bytes = utf8encoder.encode(text);
+
+    for (let index = 0; index < utf8Bytes.length; index++) {
+      this.write(utf8Bytes[index]);
+    }
+  }
+
+  readUTF() {
+    return this.readUTFString();
   }
 
   readUTFString() {
@@ -41,6 +127,40 @@ class DrawingUtils {
   }
 
   static translations_res;
+
+  static makeGradient(ctx, x1, y1, width, height, color1, color2) {
+    ctx.save();
+    var r1 = (color1 >> 16) & 0xff;
+    var g1 = (color1 >> 8) & 0xff;
+    var b1 = color1 & 0xff;
+    var r2 = (color2 >> 16) & 0xff;
+    var g2 = (color2 >> 8) & 0xff;
+    var b2 = color2 & 0xff;
+    r1 <<= 8;
+    g1 <<= 8;
+    b1 <<= 8;
+    r2 <<= 8;
+    g2 <<= 8;
+    b2 <<= 8;
+    var dr = (r2 - r1) / height;
+    var dg = (g2 - g1) / height;
+    var db = (b2 - b1) / height;
+    var x2 = x1 + width - 1;
+    var y2 = y1 + height - 1;
+
+    for (var y = y1; y < y2; ++y) {
+      ctx.strokeStyle =
+        "rgb(" + (r1 >> 8) + "," + (g1 >> 8) + "," + (b1 >> 8) + ")";
+      ctx.beginPath();
+      ctx.moveTo(x1, y);
+      ctx.lineTo(x2, y);
+      ctx.stroke();
+      r1 += dr;
+      g1 += dg;
+      b1 += db;
+    }
+    ctx.restore();
+  }
 
   static m85a(graphics, font, str, i, i2, i3, i4, z) {
     if (!DrawingUtils.f148L || z) {
@@ -254,6 +374,10 @@ class Graphics {
     console.log("TODO: handle fonts");
   }
 
+  drawChars(data, offset, length, x, y, anchor) {
+    // TODO
+  }
+
   drawString(text, x, y, anchor) {
     if ((anchor & Graphics.RIGHT) != 0) {
       this.ctx.textAlign = "right";
@@ -265,76 +389,7 @@ class Graphics {
 
     this.ctx.font = "11px sans-serif";
     console.log("TODO: draw string - " + text + ` x:${x}, y:${y}, a:${anchor}`);
-    this.ctx.fillText(text, x, y);
-  }
-}
-
-class PageDataRunnable {
-  width = 500;
-  f453a = "";
-  f460a = [0, 0, 0, 0, 0, 0, 0, 0, , 0, 0, 0]; // TODO: STUB
-  f466b = [0, 0, 0, 0, 0, 0, 0]; // TODO: STUB
-  f451a = 1;
-
-  f498i = false;
-
-  f472c = [];
-  f478d;
-
-  m351c() {
-    return null;
-  }
-
-  m350c(i) {
-    let i2 = 0;
-    let abs = Math.abs(i);
-    for (let i3 = 0; i3 <= this.f451a; i3++) {
-      i2 = this.f466b[i3];
-      if (abs >= i2 && abs <= i2) {
-        return i3;
-      }
-    }
-    return -1;
-  }
-
-  m353d(i) {
-    if (this.f453a == null || i < 0 || i > this.f453a.length) {
-      return -1;
-    }
-    return this.m249a(this.f472c, this.f469c, i);
-  }
-
-  m249a(iArr, i, i2) {
-    let i3 = -1;
-    while (i - i3 > 1) {
-      let i4 = (i + i3) / 2;
-      if (iArr[i4] > i2) {
-        i = i4;
-      } else {
-        i3 = i4;
-      }
-    }
-    if (i3 == -1 || iArr[i3] != i2) {
-      return -1;
-    }
-    return i3;
-  }
-
-  mo93a(i, i2, z, z2) {
-    if (this.f478d == null) {
-      return -1;
-    }
-    let length = this.f472c.length;
-    for (let b = 0; b < length; b++) {
-      let i3 = this.f472c[b];
-      if ((this.f484e[b] & i2) != 0 && i3 > i && (!z2 || b >= this.f436a)) {
-        return i3;
-      }
-    }
-    if (z) {
-      return this.mo93a(0, i2, false, z2);
-    }
-    return -1;
+    this.ctx.fillText(text, x, y + 11);
   }
 }
 
@@ -364,7 +419,7 @@ class SearchUI /* extends Canvas implements CommandListener, Runnable */ {
 
   // TODO
   f430t = { f342a: false, getLabel: () => "get Label todo" };
-  f431u = { f342a: false, getLabel: () => "get Label todo" };
+  f431u = { f342a: false, getLabel: () => "get Label todo", f343b: 42 };
 
   getHeight() {
     // TODO
@@ -410,7 +465,7 @@ class SearchUI /* extends Canvas implements CommandListener, Runnable */ {
       this.f409d ||
       this.f429l ||
       this.window.m188c() ||
-      (this.window.pageImageData != null && this.window.pageImageData.f498i)
+      (this.window.document != null && this.window.document.f498i)
     );
   }
 
@@ -702,9 +757,12 @@ class SearchUI /* extends Canvas implements CommandListener, Runnable */ {
 }
 
 class WindowApp {
-  pageImageData = new PageDataRunnable();
+  document = new ODocument();
 
-  f311b; // another PageDataRunnable
+  f311b; // another ODocument
+
+  f293B = -1;
+  f319e;
 
   progress = 100;
   isVisible = false;
@@ -750,17 +808,17 @@ class WindowApp {
         if (
           this.f315c &&
           this.f324h > 1 &&
-          this.pageImageData != null &&
-          this.pageImageData.width > this.height &&
+          this.document != null &&
+          this.document.width > this.height &&
           ((this.f326i == f289k && DrawingUtils.f144H) || this.f326i == f290l)
         ) {
           if (
-            this.pageImageData.f466b[this.f324h - 1] >
-            this.pageImageData.width - this.height
+            this.document.f466b[this.f324h - 1] >
+            this.document.width - this.height
           ) {
-            this.offset = this.height - this.pageImageData.width;
+            this.offset = this.height - this.document.width;
           } else {
-            this.offset = -this.pageImageData.f466b[this.f324h - 1];
+            this.offset = -this.document.f466b[this.f324h - 1];
           }
           this.f315c = false;
           this.f324h = -1;
@@ -769,18 +827,18 @@ class WindowApp {
         } else if (
           this.f315c &&
           this.f326i == f291m &&
-          this.pageImageData != null &&
-          this.pageImageData.f472c != null
+          this.document != null &&
+          this.document.f472c != null
         ) {
           this.offset = this.f318e;
           this.f315c = false;
         }
         this.drawProgressBar(graphics);
         if (
-          this.pageImageData != null &&
-          (this.pageImageData.f496h ||
-            (this.pageImageData.m351c() != null &&
-              this.pageImageData.m351c().equals("opera:alert")))
+          this.document != null &&
+          (this.document.f496h ||
+            (this.document.m351c() != null &&
+              this.document.m351c().equals("opera:alert")))
         ) {
           this.f317d = false;
         } else if (
@@ -810,12 +868,12 @@ class WindowApp {
   m163c(graphics) {
     if (
       !(
-        this.pageImageData == null ||
-        this.pageImageData.f453a == null ||
-        this.pageImageData.f460a == null ||
-        this.pageImageData.f466b == null ||
+        this.document == null ||
+        this.document.f453a == null ||
+        this.document.f460a == null ||
+        this.document.f466b == null ||
         graphics == null ||
-        this.pageImageData.f451a <= 0 ||
+        this.document.f451a <= 0 ||
         this.f317d
       )
     ) {
@@ -824,7 +882,7 @@ class WindowApp {
       let clipY = graphics.getClipY();
       let clipWidth = graphics.getClipWidth();
       let clipHeight = graphics.getClipHeight();
-      if (this.pageImageData.width > this.height) {
+      if (this.document.width > this.height) {
         if (
           DrawingUtils.m95a(
             clipX,
@@ -841,20 +899,18 @@ class WindowApp {
         }
         if (this.offset > 0) {
           this.offset = 0;
-        } else if (this.offset < this.height - this.pageImageData.width) {
-          this.offset = this.height - this.pageImageData.width;
+        } else if (this.offset < this.height - this.document.width) {
+          this.offset = this.height - this.document.width;
         }
       }
 
-      let c = this.pageImageData.m350c(this.offset - (clipY - this.y));
-      let c2 = this.pageImageData.m350c(
-        this.offset - (clipY - this.y) - clipHeight
-      );
+      let c = this.document.m350c(this.offset - (clipY - this.y));
+      let c2 = this.document.m350c(this.offset - (clipY - this.y) - clipHeight);
       if (c != -1) {
-        let s = c2 == -1 ? this.pageImageData.f451a : c2;
+        let s = c2 == -1 ? this.document.f451a : c2;
         let i = this.offset + 0;
         if (c > 0) {
-          i += this.pageImageData.f466b[c - 1];
+          i += this.document.f466b[c - 1];
         }
         this.f314c.removeAllElements();
         if (this.f300a == -1) {
@@ -864,7 +920,7 @@ class WindowApp {
         let i2 = i + this.y;
         for (let i3 = c; i3 <= s; i3++) {
           this.m151a(graphics, i3, this.x, i2, false, false);
-          i2 += this.pageImageData.f460a[i3];
+          i2 += this.document.f460a[i3];
         }
         if (i2 < clipHeight + clipY) {
           graphics.setColor(16777215);
@@ -875,22 +931,20 @@ class WindowApp {
           this.f298G = this.offset;
           this.f299H = this.f300a;
         }
-        if (
-          !(this.f336v == 0 || this.pageImageData.f465b || this.f296E == -1)
-        ) {
-          let max = Math.max(c, this.pageImageData.f485e[this.f296E]);
-          let min = Math.min(s, this.pageImageData.f490f[this.f296E]);
+        if (!(this.f336v == 0 || this.document.f465b || this.f296E == -1)) {
+          let max = Math.max(c, this.document.f485e[this.f296E]);
+          let min = Math.min(s, this.document.f490f[this.f296E]);
           let i4 = this.offset + this.y;
-          let i5 = max > 0 ? i4 + this.pageImageData.f466b[max - 1] : i4;
+          let i5 = max > 0 ? i4 + this.document.f466b[max - 1] : i4;
           let i6 = i5;
           for (let i7 = max; i7 <= min; i7++) {
             this.m151a(graphics, i7, this.x, i6, true, true);
-            i6 += this.pageImageData.f460a[i7];
+            i6 += this.document.f460a[i7];
           }
           let i8 = i5;
           for (let i9 = max; i9 <= min; i9++) {
             this.m151a(graphics, i9, this.x, i8, true, false);
-            i8 += this.pageImageData.f460a[i9];
+            i8 += this.document.f460a[i9];
           }
         }
       }
@@ -904,11 +958,11 @@ class WindowApp {
    */
   drawBG(graphics) {
     if (
-      (this.pageImageData != null &&
+      (this.document != null &&
         graphics != null &&
         this.f312b &&
-        !this.pageImageData.f500j) ||
-      (this.pageImageData == null && graphics != null && this.f312b)
+        !this.document.f500j) ||
+      (this.document == null && graphics != null && this.f312b)
     ) {
       const clipX = graphics.getClipX();
       const clipY = graphics.getClipY();
@@ -931,9 +985,9 @@ class WindowApp {
    */
   drawProgressBar(graphics) {
     if (
-      this.pageImageData == null ||
-      this.pageImageData.width <= this.height ||
-      this.pageImageData.width <= 0
+      this.document == null ||
+      this.document.width <= this.height ||
+      this.document.width <= 0
     ) {
       this.isVisible = false;
       return;
@@ -946,13 +1000,12 @@ class WindowApp {
     let max = Math.max(clipX, this.width + this.x - 6);
     let max2 = Math.max(clipY, this.y);
     let i2 = i - 2;
-    let i3 = (((i * 1024) / this.pageImageData.width) * i2) / 1024 + 3;
+    let i3 = (((i * 1024) / this.document.width) * i2) / 1024 + 3;
     let min =
-      Math.abs(this.offset) + this.height >= this.pageImageData.width
+      Math.abs(this.offset) + this.height >= this.document.width
         ? i2 - i3 + 1
         : Math.min(
-            (((Math.abs(this.offset) * 1024) / this.pageImageData.width) * i) /
-              1024,
+            (((Math.abs(this.offset) * 1024) / this.document.width) * i) / 1024,
             i2 - i3 + 1
           );
 
@@ -1001,12 +1054,12 @@ class WindowApp {
     console.log("TODO m151a");
 
     if (
-      this.pageImageData != null &&
-      this.pageImageData.f453a != null &&
-      this.pageImageData.f454a != null
+      this.document != null &&
+      this.document.f453a != null &&
+      this.document.f454a != null
     ) {
       let cVar2 = null; // C0002c
-      let i4 = this.pageImageData.f454a[i];
+      let i4 = this.document.f454a[i];
       // TODO
     }
   }
@@ -1014,28 +1067,27 @@ class WindowApp {
   m183b(i) {
     this.f308b = this.f300a;
     this.f300a = i;
-    if (this.pageImageData != null) {
-      this.f296E = this.pageImageData.m353d(this.f300a);
+    if (this.document != null) {
+      this.f296E = this.document.m353d(this.f300a);
     }
   }
 
   mo40a() {
-    if (this.pageImageData == null || this.pageImageData.f454a == null) {
+    if (this.document == null || this.document.f454a == null) {
       return -1;
     }
-    let c = this.pageImageData.m350c(this.offset);
-    if (c >= this.pageImageData.f454a.length || c < 0) {
+    let c = this.document.m350c(this.offset);
+    if (c >= this.document.f454a.length || c < 0) {
       return -1;
     }
     if (
-      this.pageImageData.f466b[c] - this.pageImageData.f460a[c] >=
-        -this.offset ||
-      (c = c + 1) < this.pageImageData.f454a.length
+      this.document.f466b[c] - this.document.f460a[c] >= -this.offset ||
+      (c = c + 1) < this.document.f454a.length
     ) {
-      return this.pageImageData.mo93a(
-        this.pageImageData.f454a[c] - 1,
+      return this.document.mo93a(
+        this.document.f454a[c] - 1,
         this.f336v,
-        this.pageImageData.f488f,
+        this.document.f488f,
         true
       );
     }
@@ -1059,6 +1111,133 @@ class WindowApp {
       this.f337w = this.height / 8;
       this.f338x = this.height / 4;
       this.f339y = this.height - DrawingUtils.m73a(SearchUI.f345a, false) - 4;
+    }
+  }
+
+  /**
+   *
+   * @param {Graphics} graphics
+   * @param {number} i
+   * @param {number} i2
+   * @param {number} i3
+   * @param {boolean} z
+   * @param {boolean} z2
+   */
+  process_doc_bytecode(graphics, i, i2, i3, z, z2) {
+    let loop = true;
+
+    if (
+      this.document != null &&
+      this.document.doc_bytecode != null /* && this.document.f454a != null */
+    ) {
+      let i5 = i2; /* + this.f329o + this.document.f467b[i]*/
+
+      let cVar;
+
+      let reader = new BytesDataView(
+        this.document.doc_bytecode,
+        0,
+        this.document.doc_bytecode.byteLength
+      );
+      /* let i4 = this.document.f454a[i]; */
+      // start = 0x2A, can't guess what's the header for before that (for now)
+      let i6 = 0x2a;
+      reader.seek(i6);
+      while (loop) {
+        // let c = this.document.doc_bytecode[i6];
+        let c = reader.readByte();
+        let i7 = i6 + 1;
+        // m164d(i7);
+        switch (String.fromCharCode(c)) {
+          case "B":
+            i6 = i7;
+            // cVar = cVar2;
+            break;
+
+          case "T":
+            let text = reader.readUTFString();
+            console.log(text);
+            // let i14 = this.document.doc_bytecode[i7] & 255;
+            // let i15 = i7 + 1;
+            // let a8 = font_size...
+            let a7 = text.length;
+            let a8 = 11;
+            /*
+              graphics.setFont(cVar2.lcd_font);
+              graphics.setColor(cVar2.f64a);
+            */
+            let i17 = i3; /* =i3 + ((this.document.f460a[i] - a8) / 2); */
+            let i14 = a7 * 10; // = DrawingUtils.m57a(cVar2.lcd_font, f286a, 0, a7, this.document.f492g);
+
+            // } else if (this.document.m356e(this.f300a) == 6) {
+            graphics.setColor(SKIN_COLORS[11]);
+            graphics.fillRect(i5 - 1, i17, i14 + 2, a8);
+            graphics.setColor(SKIN_COLORS[12]);
+            // } else {
+            // graphics.setColor(SKIN_COLORS[10]);
+            // graphics.fillRect(i5 - 1, i17, i14 + 2, a8);
+            // graphics.setColor(SKIN_COLORS[12]);
+            // }
+            // if (!DrawingUtils.use_bitmap_font || this.document.f492g) {
+            // graphics.drawChars(text, 0, a7, i5, i17 + DrawingUtils.f193j, 20);
+            // //                (data, offset, length, x, y, anchor)
+            graphics.drawString(text, i5, i17 + DrawingUtils.f193j, 20);
+            // } else {
+            // DrawingUtils.m60a(cVar2.lcd_font).mo6a(graphics, f286a, 0, a7, i5, i17, this.f335u);
+            // }
+
+            // let a6 = DrawingUtils.m74a(this.document.doc_bytecode, i15);
+
+            // if element has pointerEvent ?
+            i5 += i14;
+            break;
+
+          case "V":
+            break;
+
+          case "Y":
+            let font_id = reader.readByte();
+            // cVar = this.document.page_fonts[font_id];
+            break;
+
+          case "L":
+            this.f293B = i7 - 1;
+            // Add Click Handler
+            //  m148a(i5 - this.f329o, i3, this.width, this.document.f460a[i], this.f293B);
+            // i6 = this.readUnsignedShort();
+
+            // let i12 = i5; /* - this.f329o */
+            // let i13 = this.width;
+            // DrawingUtils.makeGradient(
+            //   graphics.ctx,
+            //   i12,
+            //   i3,
+            //   i13,
+            //   this.document.height /* this.document.f460a[i] */,
+            //   SKIN_COLORS[7],
+            //   SKIN_COLORS[8]
+            // );
+            break;
+
+          case "E":
+            this.f319e = false;
+            this.f293B = -1;
+            i6 = i7;
+            // cVar = cVar2;
+            break;
+
+          case "Q":
+            i6 = i7;
+            // cVar = cVar2;
+            break;
+
+          default:
+            console.log(`UNKW ByteCode : ${String.fromCharCode(c)} (${c})`);
+            loop = false;
+            debugger;
+            break;
+        }
+      }
     }
   }
 }

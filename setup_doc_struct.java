@@ -1,10 +1,10 @@
 private void setupDocStructure(final RMSData rms_data, final boolean b, final boolean b2) throws IOException {
-        final C0013n doc_parse;
-        (doc_parse = new C0013n()).field_type = 'V';
+        final DocumentParserData doc_parse;
+        (doc_parse = new DocumentParserData()).field_type = 'V';
         if (!b) {
             int i = 0;
             while (i == 0) {
-                final C0013n sub_doc_parse;
+                final DocumentParserData sub_doc_parse;
                 switch ((sub_doc_parse = rms_data.read_header()).field_type) {
                     case '0': {
 						/*
@@ -58,7 +58,7 @@ private void setupDocStructure(final RMSData rms_data, final boolean b, final bo
             }
         }
         while (rms_data.a) {
-            C0013n a3;
+            DocumentParserData a3;
             try {
                 a3 = rms_data.a();
                 if (this.c()) {
